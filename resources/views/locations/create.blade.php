@@ -11,7 +11,12 @@
 
         <form method="POST" action="{{ route('locations.store') }}" class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
             @csrf
-            <div class="grid gap-5 sm:grid-cols-2">
+            @if ($errors->any())
+                <div class="mb-5 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
+                    Please correct the highlighted form details and try again.
+                </div>
+            @endif
+            <div class="grid gap-5">
                 <label class="text-sm font-medium text-slate-700">
                     Location name
                     <input name="name" value="{{ old('name') }}" required class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-slate-700 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
@@ -19,18 +24,6 @@
                 <label class="text-sm font-medium text-slate-700">
                     Address
                     <input name="address" value="{{ old('address') }}" required class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-slate-700 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
-                </label>
-                <label class="text-sm font-medium text-slate-700">
-                    Latitude
-                    <input name="latitude" value="{{ old('latitude') }}" required class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-slate-700 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
-                </label>
-                <label class="text-sm font-medium text-slate-700">
-                    Longitude
-                    <input name="longitude" value="{{ old('longitude') }}" required class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-slate-700 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
-                </label>
-                <label class="text-sm font-medium text-slate-700">
-                    Map URL
-                    <input name="map_url" type="url" value="{{ old('map_url') }}" class="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-slate-700 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
                 </label>
                 <label class="text-sm font-medium text-slate-700">
                     Status
