@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Smart Locker System')</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         /* Custom scrollbar for sidebar */
         #sidebar::-webkit-scrollbar {
@@ -45,7 +45,7 @@
         }
     </style>
 </head>
-<body class="bg-[#F5F6FA] text-[#111827]">
+<body class="bg-[#F5F6FA] text-[#111827] font-sans">
     <div class="flex min-h-screen">
         <!-- Sidebar -->
         <x-sidebar />

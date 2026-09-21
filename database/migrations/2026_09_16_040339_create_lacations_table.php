@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('latitude');
             $table->string('longitude');
             $table->string('map_url');
-            $table->string('status');
+            $table->string('status')->default('active');
             $table->timestamps();
 
         });

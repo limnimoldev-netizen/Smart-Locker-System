@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('locker_id');
             $table->string('reported_by');
             $table->string('issue');
-            $table->string('status');
+            $table->boolean('close')->default(false);
             $table->date('reported_at');
             $table->date('resolved_at')->nullable();
             $table->timestamps();
