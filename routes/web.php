@@ -18,8 +18,16 @@ Route::get('/user/dashboard', [DashboardController::class, 'userIndex'])->name('
 
 Route::get('/locations', [LocationController::class, 'index'])->name('locations.index');
 Route::get('/locations/create', [LocationController::class, 'create'])->name('locations.create');
+Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
+Route::get('/locations/edit', [LocationController::class, 'edit'])->name('locations.edit');
+Route::delete('/locations/{location}', [LocationController::class, 'destroy'])->name('locations.destroy');
+
 
 Route::get('/lockers', [LockerController::class, 'index'])->name('lockers.index');
+Route::get('/lockers/create', [LockerController::class, 'create'])->name('lockers.create');
+Route::get('/lockers/edit', [LockerController::class, 'edit'])->name('lockers.edit');
+Route::get('/lockers/show', [LockerController::class, 'show'])->name('lockers.show');
+
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/maintenance', [MaintenanceController::class, 'index'])->name('maintenance.index');

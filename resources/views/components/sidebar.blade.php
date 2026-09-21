@@ -22,10 +22,10 @@
         </button>
 
 
-        <nav class="flex-1 overflow-y-auto px-4 py-6" aria-label="Main navigation">
+        <nav class="flex-1 overflow-y-auto px-4 py-6">
             @if ($isStaff)
-            <p class="mb-3 px-3 text-[11px] font-medium uppercase tracking-wider text-blue-100/55">Main menu</p>
-            <ul class="space-y-1.5">
+            <p class="mb-3 px-3 text-[11px] font-medium uppercase tracking-wider text-blue-100/55">Main</p>
+            <ul class="space-y-1">
                 <li>
                     <a href="/dashboard" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white transition-colors hover:bg-white/10 {{ request()->is('dashboard') ? 'bg-[#2f4da2] shadow-sm' : '' }}">
                         <i class="fa-solid fa-house w-4 text-center text-[13px]" aria-hidden="true"></i>
@@ -54,7 +54,7 @@
             </ul>
 
             <p class="mb-3 mt-7 px-3 text-[11px] font-medium uppercase tracking-wider text-blue-100/55">System</p>
-            <ul class="space-y-1.5">
+            <ul class="space-y-1">
                 <li>
                     <a href="/maintenance" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('maintenance*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
                         <i class="fa-solid fa-screwdriver-wrench w-4 text-center text-[13px]" aria-hidden="true"></i>
@@ -63,38 +63,38 @@
                 </li>
             </ul>
             @else
-            <p class="mb-3 px-3 text-[11px] font-medium uppercase tracking-wider text-blue-100/55">Your locker</p>
-            <ul class="space-y-1.5">
+            <p class="mb-3 px-3 text-[11px] font-medium uppercase tracking-wider text-blue-100/55">Main</p>
+            <ul class="space-y-1">
                 <li>
                     <a href="/dashboard" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('dashboard') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
                         <i class="fa-solid fa-house w-4 text-center text-[13px]" aria-hidden="true"></i>
-                        <span class="flex-1">Home</span>
+                        <span class="flex-1">Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/user/locations" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('user/locations*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
+                    <a href="/locations" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('locations*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
                         <i class="fa-solid fa-location-dot w-4 text-center text-[13px]" aria-hidden="true"></i>
-                        <span class="flex-1">Find a Locker</span>
+                        <span class="flex-1">Find Locations</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/user/lockers" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('user/lockers*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
+                    <a href="/lockers" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('lockers*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
                         <i class="fa-solid fa-box w-4 text-center text-[13px]" aria-hidden="true"></i>
-                        <span class="flex-1">My Locker</span>
+                        <span class="flex-1">Available Lockers</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/user/usage" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('user/usage*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
+                    <a href="/locker-usage" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('locker-usage*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
                         <i class="fa-solid fa-clock-rotate-left w-4 text-center text-[13px]" aria-hidden="true"></i>
-                        <span class="flex-1">Usage History</span>
+                        <span class="flex-1">My Usage</span>
                     </a>
                 </li>
             </ul>
 
-            <p class="mb-3 mt-7 px-3 text-[11px] font-medium uppercase tracking-wider text-blue-100/55">Account</p>
-            <ul class="space-y-1.5">
+            <p class="mb-3 mt-7 px-3 text-[11px] font-medium uppercase tracking-wider text-blue-100/55">System</p>
+            <ul class="space-y-1">
                 <li>
-                    <a href="/user/profile" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('user/profile*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
+                    <a href="/profile" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('profile*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
                         <i class="fa-solid fa-user w-4 text-center text-[13px]" aria-hidden="true"></i>
                         <span class="flex-1">Profile</span>
                     </a>

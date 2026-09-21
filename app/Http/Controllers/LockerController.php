@@ -11,6 +11,21 @@ class LockerController extends Controller
         return view('lockers.index');
     }
 
+    public function create()
+    {
+        return view('lockers.create');
+    }
+
+    public function edit()
+    {
+        return view('lockers.edit');
+    }
+
+    public function show()
+    {
+        return view('lockers.show');
+    }
+
     public function userIndex()
     {
         return view('user.lockers.index');
