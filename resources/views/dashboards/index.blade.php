@@ -42,12 +42,14 @@
 
         <!-- TABLE BODY -->
         <tbody class="bg-white divide-y divide-gray-200">
+            @foreach($dataLocations as $dataLocation)
             <tr>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">LCK-001</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"></td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Central Mall</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $dataLocation->name }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Active</td>
             </tr>
+            @endforeach
         </tbody>
 
     </table>

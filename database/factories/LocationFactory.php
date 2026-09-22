@@ -16,33 +16,17 @@ class LocationFactory extends Factory
      */
     public function definition(): array
     {
-        $cities = ['Phnom Penh', 'Siem Reap', 'Sihanoukville', 'Battambang', 'Kampot', 'Kampong Cham'];
-        $types = ['Mall', 'Plaza', 'Market', 'Center', 'Station', 'Hub'];
-        $names = ['Aeon', 'Sorya', 'Angkor', 'Sovanna', 'Phsar Thmei', 'Olympia', 'Techo', 'Veng Sreng'];
-
         return [
-            'name' => fake()->randomElement($names) . ' ' . fake()->randomElement($types),
-            'city' => fake()->randomElement($cities),
-            'address' => fake()->numberBetween(1, 200) . ' ' . fake()->randomElement(['Preah Monivong Blvd', 'Norodom Blvd', 'Sivatha Rd', 'National Road 4', 'Street 271']),
+            'name' => $this->faker->randomElement([
+                'AEON Mall Station',
+                'Airport Terminal 1',
+                'Central Market Hub',
+                'University Campus Lockers',
+                'Train Station Kiosk',
+                'Downtown Plaza Lockers',
+            ]),
+            'address' => $this->faker->streetAddress(),
+            'available' => $this->faker->boolean(70),
         ];
-    }
-
-    // Optional state helpers
-    public function active(): static
-    {
-        return $this->state(fn () => ['status' => 'active']);
-    }
-
-    public function full(): static
-    {
-        return $this->state(fn (array $attrs) => [
-            'available_slots' => 0,
-            'total_slots'     => $attrs['total_slots'] ?? 20,
-        ]);
-    }
-
-    public function maintenance(): static
-    {
-        return $this->state(fn () => ['status' => 'maintenance']);
     }
 }

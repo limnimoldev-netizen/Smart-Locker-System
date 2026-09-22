@@ -71,6 +71,8 @@ class DashboardController extends Controller
             ],
         ];
 
-        return view('dashboards.index', compact('stats'));
+        $dataLocations = Location::paginate(10);
+
+        return view('dashboards.index', compact('stats', 'dataLocations'));
     }
 }

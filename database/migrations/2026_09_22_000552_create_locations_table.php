@@ -13,15 +13,9 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->string('locker_id')->unique();
-            $table->string('location_name');
+            $table->string('name');
             $table->string('address');
-            $table->string('city');
-            $table->decimal('latitude', 10, 7);
-            $table->decimal('longitude', 10, 7);
-            $table->enum('status', ['active', 'maintenance', 'offline'])->default('active');
-            $table->integer('total_slots');
-            $table->integer('available_slots');
+            $table->boolean('available')->default(false);
             $table->timestamps();
         });
     }

@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lockers', function (Blueprint $table) {
-            $table->id();
-            $table->string('location_id');
-            $table->string('locker_number');
-            $table->string('locker_code');
-            $table->boolean('available')->default(false);
+            $table->string('locker_id', 20)->primary();
+            $table->string('locker_code', 30)->unique();
+            $table->string('location_id', 20)->index();
+            $table->string('locker_type', 30)->default('Standard');
+            $table->string('lock_type', 30)->default('Key');
+            $table->string('access_method', 30)->default('Key');
+            $table->string('status', 20)->default('Available')->index();
             $table->timestamps();
         });
     }
