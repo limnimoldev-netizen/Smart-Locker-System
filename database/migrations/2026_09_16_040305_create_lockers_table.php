@@ -16,7 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('location_id');
             $table->string('type');
             $table->string('status');
-            $table->string('locker_number')->unique();
             $table->timestamps();
         });
     }

@@ -36,6 +36,12 @@ Route::delete('/lockers/{locker}', [LockerController::class, 'destroy'])->name('
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/maintenance', [MaintenanceController::class, 'index'])->name('maintenance.index');
+Route::get('/maintenance/create', [MaintenanceController::class, 'create'])->name('maintenance.create');
+Route::post('/maintenance', [MaintenanceController::class, 'store'])->name('maintenance.store');
+Route::get('/maintenance/{maintenance}/edit', [MaintenanceController::class, 'edit'])->name('maintenance.edit');
+Route::put('/maintenance/{maintenance}', [MaintenanceController::class, 'update'])->name('maintenance.update');
+Route::get('/maintenance/{maintenance}', [MaintenanceController::class, 'show'])->name('maintenance.show');
+Route::delete('/maintenance/{maintenance}', [MaintenanceController::class, 'destroy'])->name('maintenance.destroy');
 Route::get('/user/locations', [LocationController::class, 'userIndex'])->name('user.locations.index');
 Route::get('/user/lockers', [LockerController::class, 'userIndex'])->name('user.lockers.index');
 Route::get('/user/usage', [LockerUsageController::class, 'index'])->name('user.usage.index');
