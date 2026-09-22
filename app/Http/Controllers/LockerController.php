@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Locker;
+use App\Models\Location;
 use Illuminate\Http\Request;
 
 class LockerController extends Controller
@@ -19,18 +20,24 @@ class LockerController extends Controller
 
     public function create()
     {
-        return view('lockers.create');
+        return view('lockers.create', [
+            'locations' => Location::orderBy('name')->get(),
+        ]);
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'location_id' => 'required|exists:locations,id',
-            'type' => 'required|in:small,medium,large',
-            'status' => 'required|in:available,in_use,maintenance',
-        ]);
+        $location_id = $request->input('location_id');
+        $type = $request->input('type');
+        $status = $request->input('status');
 
-        Locker::create($validated);
+        Locker::create([
+            'location_id' => $location_id,
+            'type' => $type,
+            'status' => $status,
+            'locker_number' => $request->input('locker_number'),
+
+        ]);
 
         return redirect()->route('lockers.index');
     }

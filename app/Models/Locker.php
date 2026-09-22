@@ -12,6 +12,7 @@ class Locker extends Model
         'location_id',
         'type',
         'status',
+        'locker_number',
     ];
 
     public function location()

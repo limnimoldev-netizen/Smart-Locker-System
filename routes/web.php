@@ -27,8 +27,11 @@ Route::delete('/locations/{location}', [LocationController::class, 'destroy'])->
 
 Route::get('/lockers', [LockerController::class, 'index'])->name('lockers.index');
 Route::get('/lockers/create', [LockerController::class, 'create'])->name('lockers.create');
-Route::get('/lockers/edit', [LockerController::class, 'edit'])->name('lockers.edit');
-Route::get('/lockers/show', [LockerController::class, 'show'])->name('lockers.show');
+Route::post('/lockers', [LockerController::class, 'store'])->name('lockers.store');
+Route::get('/lockers/{locker}/edit', [LockerController::class, 'edit'])->name('lockers.edit');
+Route::put('/lockers/{locker}', [LockerController::class, 'update'])->name('lockers.update');
+Route::get('/lockers/{locker}', [LockerController::class, 'show'])->name('lockers.show');
+Route::delete('/lockers/{locker}', [LockerController::class, 'destroy'])->name('lockers.destroy');
 
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
