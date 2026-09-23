@@ -32,9 +32,6 @@ class LocationController extends Controller
         Location::create([
             'name' => $name,
             'address' => $address,
-            'latitude' => '0',
-            'longitude' => '0',
-            'map_url' => 'https://www.google.com/maps',
             'status' => $status,
         ]);
 

@@ -15,9 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
-            $table->string('latitude');
-            $table->string('longitude');
-            $table->string('map_url');
             $table->string('status');
             $table->timestamps();
 
