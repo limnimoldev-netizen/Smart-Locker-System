@@ -34,11 +34,12 @@ class RegisterController extends Controller
             'email'    => $data['email'],
             'phone'    => $data['phone'],
             'password' => Hash::make($data['password']),
+            'role'     => 'user',
         ]);
 
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('user.dashboard');
     }
 }

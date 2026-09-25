@@ -6,5 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
-    //
+    protected $table = 'locations';
+
+    protected $fillable = [
+        'name',
+        'address',
+        'status',
+    ];
+
+    public function lockers()
+    {
+        return $this->hasMany(Locker::class);
+    }
+
 }

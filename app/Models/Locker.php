@@ -6,5 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Locker extends Model
 {
-    //
+    protected $table = 'lockers';
+
+    protected $fillable = [
+        'locker_number',
+        'location_id',
+        'type',
+        'status',
+    ];
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
+
 }
