@@ -9,6 +9,7 @@ class Locker extends Model
     protected $table = 'lockers';
 
     protected $fillable = [
+        'locker_number',
         'location_id',
         'type',
         'status',

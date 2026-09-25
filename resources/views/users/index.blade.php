@@ -17,12 +17,18 @@
                     </div>
                 </div>
 
-                <a href="#" class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-[#111827] shadow-sm hover:bg-[#C7D2EF] sm:w-auto">
+                <a href="{{ route('users.create') }}" class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-[#111827] shadow-sm hover:bg-[#C7D2EF] sm:w-auto">
                     <i class="fa-solid fa-plus text-xs" aria-hidden="true"></i>
                     Add user
                 </a>
             </div>
         </section>
+
+        @if (session('success'))
+            <div class="rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-700" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
 
         <section class="grid gap-8 sm:grid-cols-3">
             <div class="rounded-lg border border-slate-200 bg-white px-5 py-5 shadow-sm">
@@ -40,7 +46,7 @@
                     <i class="fa-solid fa-circle-check text-emerald-600" aria-hidden="true"></i>
                 </div>
                 <p class="mt-2 text-2xl font-semibold">{{ $activeUsers }}</p>
-                <p class="text-base text-slate-500">Customers online</p>
+                        <p class="text-base text-slate-500">Registered customers</p>
             </div>
 
             <div class="rounded-lg border border-slate-200 bg-white px-5 py-5 shadow-sm">
@@ -49,7 +55,7 @@
                     <i class="fa-solid fa-rotate text-sky-600" aria-hidden="true"></i>
                 </div>
                 <p class="mt-2 text-2xl font-semibold">{{ $totalSessions }}</p>
-                <p class="text-base text-slate-500">This month</p>
+                        <p class="text-base text-slate-500">Locker usage records</p>
             </div>
         </section>
 
@@ -105,8 +111,12 @@
                                 <td class="px-5 py-4">{{ $user->id * 3 }}</td>
                                 <td class="px-5 py-4 text-right">
                                     <div class="flex justify-end gap-3 text-slate-400">
-                                        <button type="button" aria-label="Edit user" class="hover:text-blue-700"><i class="fa-solid fa-pen" aria-hidden="true"></i></button>
-                                        <button type="button" aria-label="Delete user" class="hover:text-red-600"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                                        <a href="{{ route('users.edit', $user) }}" aria-label="Edit user" class="hover:text-blue-700"><i class="fa-solid fa-pen" aria-hidden="true"></i></a>
+                                        <form method="POST" action="{{ route('users.destroy', $user) }}" onsubmit="return confirm('Delete this user?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" aria-label="Delete user" class="hover:text-red-600"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
