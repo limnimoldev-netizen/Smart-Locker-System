@@ -17,17 +17,23 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'phone' => '0700000001',
+            'role' => 'admin',
+        ]);
+
+        User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'phone' => '0700000002',
+            'role' => 'user',
         ]);
 
         Location::firstOrCreate(
             ['name' => 'Main Location'],
             [
                 'address' => 'Main Street',
-                'latitude' => '0',
-                'longitude' => '0',
-                'map_url' => 'https://www.google.com/maps',
                 'status' => 'active',
             ]
         );

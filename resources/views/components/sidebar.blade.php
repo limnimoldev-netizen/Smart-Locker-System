@@ -107,7 +107,12 @@
             <div class="flex items-center gap-3 rounded-lg px-1 py-1">
                 <div class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-xs font-bold text-[#234397]">{{ $initial }}</div>
                 <div class="min-w-0 flex-1"><p class="truncate text-xs font-semibold text-white">{{ $displayName }}</p><p class="truncate text-[11px] text-blue-100/55">{{ $isStaff ? ucfirst($userRole) : 'Locker customer' }}</p></div>
-                <button type="button" class="rounded-md p-2 text-blue-100/80 transition hover:bg-white/10 hover:text-white" title="Account menu" aria-label="Account menu"><i class="fa-solid fa-arrow-right-from-bracket text-sm" aria-hidden="true"></i></button>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="rounded-md p-2 text-blue-100/80 transition hover:bg-white/10 hover:text-white" title="Log out" aria-label="Log out">
+                        <i class="fa-solid fa-arrow-right-from-bracket text-sm" aria-hidden="true"></i>
+                    </button>
+                </form>
             </div>
         </div>
     </div>

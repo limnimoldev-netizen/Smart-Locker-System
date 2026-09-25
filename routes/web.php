@@ -39,15 +39,35 @@ Route::middleware('auth')->group(function () {
     Route::middleware(AdminAccess::class)->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        Route::resource('locations', LocationController::class)->except('destroy');
+        Route::get('/locations', [LocationController::class, 'index'])->name('locations.index');
+        Route::get('/locations/create', [LocationController::class, 'create'])->name('locations.create');
+        Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
+        Route::get('/locations/{location}', [LocationController::class, 'show'])->name('locations.show');
+        Route::get('/locations/{location}/edit', [LocationController::class, 'edit'])->name('locations.edit');
+        Route::put('/locations/{location}', [LocationController::class, 'update'])->name('locations.update');
         Route::delete('/locations/{location}', [LocationController::class, 'destroy'])->name('locations.destroy');
 
-        Route::resource('lockers', LockerController::class)->except('destroy');
+        Route::get('/lockers', [LockerController::class, 'index'])->name('lockers.index');
+        Route::get('/lockers/create', [LockerController::class, 'create'])->name('lockers.create');
+        Route::post('/lockers', [LockerController::class, 'store'])->name('lockers.store');
+        Route::get('/lockers/{locker}', [LockerController::class, 'show'])->name('lockers.show');
+        Route::get('/lockers/{locker}/edit', [LockerController::class, 'edit'])->name('lockers.edit');
+        Route::put('/lockers/{locker}', [LockerController::class, 'update'])->name('lockers.update');
         Route::delete('/lockers/{locker}', [LockerController::class, 'destroy'])->name('lockers.destroy');
 
-        Route::resource('users', UserController::class)->except('show');
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+        Route::post('/users', [UserController::class, 'store'])->name('users.store');
+        Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
-        Route::resource('maintenance', MaintenanceController::class)->except('destroy');
+        Route::get('/maintenance', [MaintenanceController::class, 'index'])->name('maintenance.index');
+        Route::get('/maintenance/create', [MaintenanceController::class, 'create'])->name('maintenance.create');
+        Route::post('/maintenance', [MaintenanceController::class, 'store'])->name('maintenance.store');
+        Route::get('/maintenance/{maintenance}', [MaintenanceController::class, 'show'])->name('maintenance.show');
+        Route::get('/maintenance/{maintenance}/edit', [MaintenanceController::class, 'edit'])->name('maintenance.edit');
+        Route::put('/maintenance/{maintenance}', [MaintenanceController::class, 'update'])->name('maintenance.update');
         Route::delete('/maintenance/{maintenance}', [MaintenanceController::class, 'destroy'])->name('maintenance.destroy');
     });
 

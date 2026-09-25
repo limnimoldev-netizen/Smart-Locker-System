@@ -10,7 +10,9 @@ class UserAccess
 {
     public function handle(Request $request, Closure $next): Response
     {
-        abort_unless($request->user()->role === 'user', 403);
+        if ($request->user()->role !== 'user') {
+            return redirect()->route('dashboard');
+        }
 
         return $next($request);
     }
