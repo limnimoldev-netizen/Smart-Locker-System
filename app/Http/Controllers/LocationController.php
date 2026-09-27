@@ -27,11 +27,13 @@ class LocationController extends Controller
     {
         $name = $request->input('name');
         $address = $request->input('address');
+        $map_url = $request->input('map_url');
         $status = $request->input('status');
 
         Location::create([
             'name' => $name,
             'address' => $address,
+            'map_url' => $map_url,
             'status' => $status,
         ]);
 
@@ -56,12 +58,14 @@ class LocationController extends Controller
     {
         $name = $request->input('name');
         $address = $request->input('address');
+        $map_url = $request->input('map_url');
         $status = $request->input('status');
 
         $location = Location::findOrFail($id);
         $location->update([
             'name' => $name,
             'address' => $address,
+            'map_url' => $map_url,
             'status' => $status,
         ]);
 

@@ -12,6 +12,7 @@ class Location extends Model
         'name',
         'address',
         'status',
+        'map_url',
     ];
 
     public function lockers()
