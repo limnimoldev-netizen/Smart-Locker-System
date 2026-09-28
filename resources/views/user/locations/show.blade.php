@@ -4,11 +4,9 @@
 <div class="min-h-screen bg-white flex flex-col">
 
     {{-- Header --}}
-    <header class="bg-gradient-to-b from-blue-900 to-blue-950 text-white px-5 sm:px-10 pt-6 pb-5 flex items-center gap-4 flex-shrink-0">
+    <header class="rounded-xl bg-[#1E3A8A] px-4 py-4 text-white shadow-md sm:rounded-lg sm:px-8 sm:py-5">
         <a href="{{ url()->previous() }}" class="text-white">
-             <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m15 18-6-6 6-6"/>
-            </svg>
+             
         </a>
         <h1 class="text-lg sm:text-2xl font-bold">Location Details</h1>
     </header>

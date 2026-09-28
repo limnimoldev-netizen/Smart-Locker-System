@@ -12,7 +12,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::patch('/locker-usages/{lockerUsage}/release', [LockerUsageController::class, 'release'])->name('locker-usages.release');
 Route::get('/locations/search', [LocationController::class, 'search']);
 Route::get('/locations/{location}', [LocationController::class, 'show']);
 Route::get('/locations/{location}/lockers', [LocationController::class, 'lockers']);
@@ -41,5 +41,3 @@ Route::get('/user/profile', function () {
 
 
 
-
-Route::patch('/locker-usages/{lockerUsage}/release', [LockerUsageController::class, 'release'])->name('locker-usages.release');

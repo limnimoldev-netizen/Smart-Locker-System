@@ -5,8 +5,8 @@
 
     {{-- Dimmed background content --}}
     <div class="opacity-30 flex-1 pointer-events-none select-none">
-        <header class="bg-gradient-to-br from-blue-800 via-blue-900 to-indigo-950 text-white px-5 sm:px-10 lg:px-16 pt-6 pb-5 flex items-center gap-4">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        <header class="rounded-xl bg-[#1E3A8A] px-4 py-4 text-white shadow-md sm:rounded-lg sm:px-8 sm:py-5">
+        
             <h1 class="text-lg sm:text-2xl font-bold">Locker {{ $locker->locker_number }}</h1>
         </header>
 
@@ -26,11 +26,9 @@
         </div>
     </div>
 
-    {{-- Modal --}}
-    <div class="fixed inset-0 flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
-        <div class="bg-white rounded-t-3xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl w-full sm:max-w-md">
-            <div class="w-10 h-1.5 bg-gray-200 rounded-full mx-auto mb-5 sm:hidden"></div>
-
+   {{-- Confirm card --}}
+    <div class="px-5 sm:px-10 lg:px-16 py-6 sm:py-10 absolute inset-0 flex items-center justify-center">
+        <div class="max-w-md mx-auto bg-white rounded-3xl p-6 sm:p-8 shadow-lg border border-gray-100">
             <h2 class="text-lg sm:text-xl font-bold text-gray-900 text-center">Use this locker?</h2>
             <p class="text-sm sm:text-base text-gray-500 text-center mt-2">
                 Are you sure you want to use Locker {{ $locker->locker_number }} at {{ $location->name }}? It will be reserved under your account.
@@ -39,7 +37,7 @@
             <form method="POST" action="/lockers/{{ $locker->id }}/confirm" class="mt-5">
                 @csrf
                 <button type="submit" class="w-full bg-blue-900 text-white font-bold rounded-2xl py-4 hover:bg-blue-950 transition-colors">
-                    Confirm & Unlock
+                    Confirm &amp; Unlock
                 </button>
             </form>
 
@@ -48,5 +46,6 @@
             </a>
         </div>
     </div>
+</div>
 </div>
 @endsection

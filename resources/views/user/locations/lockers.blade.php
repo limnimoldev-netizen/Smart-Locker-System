@@ -4,16 +4,12 @@
 <div class="min-h-screen bg-gray-50 flex flex-col">
 
     {{-- Header --}}
-   <header class="bg-gradient-to-b from-blue-900 to-blue-950 text-white px-5 sm:px-10 pt-6 pb-5 flex items-center gap-4 flex-shrink-0">
-        <a href="{{ url()->previous() }}" class="text-white">
-             <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m15 18-6-6 6-6"/>
-            </svg>
+    <header class="rounded-xl bg-[#1E3A8A] px-4 py-4 text-white shadow-md sm:rounded-lg sm:px-8 sm:py-5">
+        <a href="{{ url()->previous() }}" class="text-white  rounded-lg hover:bg-white/10 transition-colors flex-shrink-0">
+          
         </a>
         <h1 class="text-lg sm:text-2xl font-bold">Location Details</h1>
     </header>
-     
-
 
     <div class="px-5 sm:px-10 lg:px-16 py-6 sm:py-10 flex-1">
 
@@ -25,7 +21,7 @@
         <p class="text-base sm:text-lg font-bold text-gray-900 mt-6 sm:mt-8 mb-3">Select a Locker</p>
 
         {{-- Locker grid --}}
-        <div id="lockerGrid" class="   pb-10 pt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 items-start"></div>
+        <div id="lockerGrid" class="pb-10 pt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 items-start"></div>
 
         {{-- Legend --}}
         <div class="flex flex-wrap items-center justify-center gap-4 py-3 bg-white border border-gray-100 rounded-full text-sm shadow-sm max-w-md mx-auto">
@@ -40,7 +36,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p id="selectedName" class="font-bold text-gray-900"></p>
-                        <p id="selectedMeta" class="text-xs text-gray-500"></p>
+                        <p id="selectedMeta" class="text-xs text-gray-500 capitalize"></p>
                     </div>
                     <span id="selectedStatus" class="flex items-center gap-1.5 text-sm font-semibold"></span>
                 </div>
@@ -100,7 +96,7 @@
 
         const s = statusMeta(selected.status);
         document.getElementById('selectedName').textContent = `Locker-${selected.locker_number}`;
-        document.getElementById('selectedMeta').textContent = 'Standard locker';
+        document.getElementById('selectedMeta').textContent = `${selected.type || 'Standard'} locker`;
         document.getElementById('selectedStatus').innerHTML = `<span class="w-2 h-2 rounded-full ${s.dot}"></span>${s.label}`;
         document.getElementById('selectedStatus').className = `flex items-center gap-1.5 text-sm font-semibold ${s.cls}`;
         panel.classList.remove('hidden');

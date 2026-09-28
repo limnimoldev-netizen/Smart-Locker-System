@@ -1,10 +1,10 @@
 @extends('layouts.app')
-
+@section('title', 'Find Location')
 @section('content')
 <div class="min-h-screen bg-gray-50 flex flex-col">
 
     {{-- Header --}}
-    <header class="bg-gradient-to-br from-blue-800 via-blue-900 to-indigo-950 text-white px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-6 sm:pb-8 flex-shrink-0 shadow-lg">
+    <header class="rounded-xl bg-[#1E3A8A] px-4 py-4 text-white shadow-md sm:rounded-lg sm:px-8 sm:py-5">
         <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-4 sm:mb-6 tracking-tight">Find a Location</h1>
         <div class="bg-white rounded-2xl flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-4 w-full sm:max-w-md lg:max-w-lg xl:max-w-2xl shadow-xl shadow-blue-950/30 ring-1 ring-white/10 focus-within:ring-2 focus-within:ring-blue-400 transition-all">
             <svg class="w-5 h-5 text-gray-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
