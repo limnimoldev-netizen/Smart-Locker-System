@@ -12,6 +12,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/locations/search', [LocationController::class, 'search']);
 Route::get('/locations/{location}', [LocationController::class, 'show']);
 Route::get('/locations/{location}/lockers', [LocationController::class, 'lockers']);
