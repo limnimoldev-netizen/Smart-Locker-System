@@ -12,7 +12,7 @@
 <aside id="sidebar" class="
     fixed inset-y-0 left-0 z-50 w-64 -translate-x-full transition-transform
     lg:static lg:translate-x-0 lg:z-auto
-    bg-[#1E3A8A] ...
+    bg-[#1E3A8A] flex flex-col min-h-screen
 ">
     <!-- sidebar content -->
         <div class="px-5 pt-7">
@@ -114,5 +114,4 @@
                 <button type="button" class="rounded-md p-2 text-blue-100/80 transition hover:bg-white/10 hover:text-white" title="Account menu" aria-label="Account menu"><i class="fa-solid fa-arrow-right-from-bracket text-sm" aria-hidden="true"></i></button>
             </div>
         </div>
-    </div>
 </aside>

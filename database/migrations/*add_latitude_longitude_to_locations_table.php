@@ -9,15 +9,30 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('locations', function (Blueprint $table) {
-            $table->string('latitude')->nullable();
-            $table->string('longitude')->nullable();
+            if (!Schema::hasColumn('locations', 'latitude')) {
+                $table->string('latitude')->nullable();
+            }
+            if (!Schema::hasColumn('locations', 'longitude')) {
+                $table->string('longitude')->nullable();
+            }
         });
     }
 
     public function down(): void
     {
         Schema::table('locations', function (Blueprint $table) {
-            $table->dropColumn(['latitude', 'longitude']);
+            $columnsToDrop = [];
+
+            if (Schema::hasColumn('locations', 'latitude')) {
+                $columnsToDrop[] = 'latitude';
+            }
+            if (Schema::hasColumn('locations', 'longitude')) {
+                $columnsToDrop[] = 'longitude';
+            }
+
+            if (!empty($columnsToDrop)) {
+                $table->dropColumn($columnsToDrop);
+            }
         });
     }
 };
