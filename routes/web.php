@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/locations', [LocationController::class, 'index'])->name('locations.index');
-Route::get('/lockers', [LockerController::class, 'index'])->name('lockers.index');
+Route::resource('lockers', LockerController::class);
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/maintenance', [MaintenanceController::class, 'index'])->name('maintenance.index');
 

@@ -15,10 +15,8 @@ return new class extends Migration
             $table->string('locker_id', 20)->primary();
             $table->string('locker_code', 30)->unique();
             $table->string('location_id', 20)->index();
-            $table->string('locker_type', 30)->default('Standard');
-            $table->string('lock_type', 30)->default('Key');
-            $table->string('access_method', 30)->default('Key');
-            $table->string('status', 20)->default('Available')->index();
+            $table->string('user_id', 20)->nullable()->index();
+            $table->string('status', 20)->default('available')->index();
             $table->timestamps();
         });
     }

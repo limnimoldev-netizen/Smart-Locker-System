@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // Location
         $locationTotal = Location::count();
@@ -19,15 +19,15 @@ class DashboardController extends Controller
 
         // Locker
         $lockerTotal = Locker::count();
-        $lockerInUse = Locker::where('available', false)->count();
+        $lockerInUse = Locker::where('status', 'available')->count();
         $lockerFree = $lockerTotal - $lockerInUse;
 
         // User
         $userTotal = User::count();
-        $userActive = Locker::where('available', false)->whereNotNull('user_id')->distinct('user_id')->count('user_id');
+        $userActive = User::where('status', 'Active')->count();
 
         // Maintenance
-        $maintenanceOpen = Maintenance::where('close', false)->count();
+        $maintenanceOpen = Maintenance::where('status', 'open')->count();
         $stats = [
             [
                 'label' => 'Total Locations',
@@ -71,8 +71,29 @@ class DashboardController extends Controller
             ],
         ];
 
-        $dataLocations = Location::paginate(10);
+        $query = Locker::with(['location', 'user']);
 
-        return view('dashboards.index', compact('stats', 'dataLocations'));
+        // Search by Locker Code, Locker ID, or Location Name
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('locker_code', 'like', "%{$search}%")
+                ->orWhere('locker_id', 'like', "%{$search}%")
+                ->orWhereHas('location', function($locQuery) use ($search) {
+                    // FIXED: Using 'location_name' to match your database
+                    $locQuery->where('location_name', 'like', "%{$search}%"); 
+                });
+            });
+        }
+
+        // Filter by Status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status); // Values are already lowercase from the form
+        }
+
+        // Paginate and preserve URL query strings
+        $dataLockers = $query->paginate(10)->withQueryString();
+
+        return view('dashboards.index', compact('stats', 'dataLockers'));
     }
 }

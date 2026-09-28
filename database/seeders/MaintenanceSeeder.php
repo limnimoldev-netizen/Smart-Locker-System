@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Location;
+use App\Models\Maintenance;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class LocationSeeder extends Seeder
+class MaintenanceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Location::factory()->count(13)->create();
+        Maintenance::factory()->count(37)->create();
     }
 }

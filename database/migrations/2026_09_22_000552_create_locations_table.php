@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('locations', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->string('location_id')->primary();
+            $table->string('location_name');
             $table->string('address');
-            $table->boolean('available')->default(false);
+            $table->string('opening_hours');
+            $table->unsignedBigInteger('capacity');
+            $table->unsignedBigInteger('current_locker_count')->default(0);
             $table->timestamps();
         });
     }
