@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
+            $table->string('map_url')->nullable();
             $table->string('status');
             $table->timestamps();
 

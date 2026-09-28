@@ -86,5 +86,4 @@ class LockerController extends Controller
     {
         return view('user.lockers.index');
     }
-
 }

@@ -19,6 +19,7 @@ class Location extends Model
         'capacity',
         'current_locker_count',
         'status',
+        'map_url',
     ];
 
     public function lockers() {
