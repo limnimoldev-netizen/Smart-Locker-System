@@ -51,7 +51,7 @@
             </div>
             <input type="text" name="search" x-model="search" @input="submitForm()"
                    class="block w-full pl-9 pr-3 py-2 rounded-md border border-gray-300 shadow-sm text-xs focus:border-brand focus:ring-2 focus:ring-brand/20 focus:outline-none placeholder:text-gray-400" 
-                   placeholder="Search locker code or location...">
+                   placeholder="Search locker number or location...">
         </div>
 
         <!-- Status Filter (Real-Time) -->
@@ -60,10 +60,13 @@
                     class="block rounded-md border border-gray-300 shadow-sm text-xs py-2 pl-3 pr-8 focus:border-brand focus:ring-2 focus:ring-brand/20 focus:outline-none bg-white text-gray-700">
                 <option value="">All Statuses</option>
                 <option value="available">Available</option>
+                <option value="in_use">In Use</option>
                 <option value="occupied">Occupied</option>
+                <option value="reserved">Reserved</option>
                 <option value="cleaning">Cleaning</option>
                 <option value="maintenance">Under Maintenance</option>
-                <option value="outofservice">Out of Service</option>
+                <option value="out_of_service">Out of Service</option>
+                <option value="disabled">Disabled</option>
             </select>
     
             <!-- Clear Button -->
@@ -83,9 +86,9 @@
         <!-- TABLE HEADER -->
         <thead class="bg-gray-50">
             <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Locker Code</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Locker Number</th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Location</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Opening Hours</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Address</th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Action</th>
 
@@ -96,22 +99,33 @@
         <tbody class="bg-white divide-y divide-gray-200">
             @forelse($dataLockers as $locker)
             <tr class="hover:bg-gray-50 transition-colors duration-150">
-                <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-900">{{ $locker->locker_code }}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-900">{{ $locker->location?->location_name ?? '_' }}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-900">{{ $locker->location?->opening_hours ?? '_' }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-900">{{ $locker->locker_number }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-900">{{ $locker->dashboard_location_name ?? '_' }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-900">{{ $locker->dashboard_location_address ?? '_' }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold text-capitalize {{ $locker->status->color() }}">
-                        {{ $locker->status->label() ?? $locker->status }}
+                    @php
+                        $status = (string) $locker->status;
+                        $statusLabel = \App\Enums\LockerStatus::tryFrom($status)?->label() ?? \Illuminate\Support\Str::headline($status);
+                        $statusClass = match ($status) {
+                            'available' => 'text-green-700 bg-green-100',
+                            'occupied', 'reserved' => 'text-blue-700 bg-blue-100',
+                            'maintenance', 'cleaning' => 'text-orange-700 bg-orange-100',
+                            'out_of_service' => 'text-red-700 bg-red-100',
+                            default => 'text-gray-700 bg-gray-100',
+                        };
+                    @endphp
+                    <span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $statusClass }}">
+                        {{ $statusLabel }}
                     </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <div class="flex items-center justify-end space-x-2">
-                        <a href="{{ route('lockers.edit', $locker->locker_id) }}" 
+                        <a href="{{ route('lockers.edit', $locker->id) }}" 
                            class="text-blue-600 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-md transition-colors text-xs font-semibold">
                             Edit
                         </a>
                         
-                        <form action="{{ route('lockers.destroy', $locker->locker_id) }}" method="POST" onsubmit="return confirm('Delete this locker?');" class="inline">
+                        <form action="{{ route('lockers.destroy', $locker->id) }}" method="POST" onsubmit="return confirm('Delete this locker?');" class="inline">
                             @csrf
                             @method('DELETE')
                             <button type="submit" 

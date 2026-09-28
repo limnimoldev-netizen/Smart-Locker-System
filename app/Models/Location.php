@@ -11,10 +11,6 @@ class Location extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $primaryKey = 'location_id';
-    public $incrementing = false;
-    protected $keyType = 'string';
-
     protected $fillable = [
         'location_id',
         'location_name',

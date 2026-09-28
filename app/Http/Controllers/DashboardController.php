@@ -19,8 +19,8 @@ class DashboardController extends Controller
 
         // Locker
         $lockerTotal = Locker::count();
-        $lockerInUse = Locker::where('status', 'available')->count();
-        $lockerFree = $lockerTotal - $lockerInUse;
+        $lockerFree = Locker::where('status', 'available')->count();
+        $lockerInUse = Locker::whereIn('status', ['in_use', 'occupied', 'reserved'])->count();
 
         // User
         $userTotal = User::count();
@@ -43,7 +43,7 @@ class DashboardController extends Controller
                 'label' => 'Total Lockers',
                 'value' => $lockerTotal,
                 'class_value' => 'text-success-fg',
-                'trend' => "{$lockerInUse} in use | {$lockerFree} free",
+                'trend' => "{$lockerFree} available | {$lockerInUse} in use",
                 'trend_icon' => 'fa-box',
                 'class_trend' => 'text-success-fg/80',
                 'icon' => 'fa-box',
@@ -71,28 +71,27 @@ class DashboardController extends Controller
             ],
         ];
 
-        $query = Locker::with(['location', 'user']);
+        $query = Locker::query()
+            ->leftJoin('locations', 'locations.id', '=', 'lockers.location_id')
+            ->select('lockers.*', 'locations.name as dashboard_location_name', 'locations.address as dashboard_location_address');
 
-        // Search by Locker Code, Locker ID, or Location Name
+        // Search by locker number, locker ID, or location name.
         if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->where('locker_code', 'like', "%{$search}%")
-                ->orWhere('locker_id', 'like', "%{$search}%")
-                ->orWhereHas('location', function($locQuery) use ($search) {
-                    // FIXED: Using 'location_name' to match your database
-                    $locQuery->where('location_name', 'like', "%{$search}%"); 
-                });
+            $search = '%' . $request->string('search')->trim() . '%';
+            $query->where(function ($query) use ($search) {
+                $query->where('lockers.locker_number', 'like', $search)
+                    ->orWhereRaw('CAST(lockers.id AS TEXT) ILIKE ?', [$search])
+                    ->orWhere('locations.name', 'ilike', $search);
             });
         }
 
         // Filter by Status
         if ($request->filled('status')) {
-            $query->where('status', $request->status); // Values are already lowercase from the form
+            $query->where('lockers.status', $request->status);
         }
 
         // Paginate and preserve URL query strings
-        $dataLockers = $query->paginate(10)->withQueryString();
+        $dataLockers = $query->orderByDesc('lockers.created_at')->paginate(10)->withQueryString();
 
         return view('dashboards.index', compact('stats', 'dataLockers'));
     }
