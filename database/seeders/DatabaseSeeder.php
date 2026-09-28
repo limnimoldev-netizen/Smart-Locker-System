@@ -15,11 +15,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            LocationSeeder::class,
-            LockerSeeder::class,
-            UserSeeder::class,
-            MaintenanceSeeder::class,
+        // User::factory(10)->create();
+
+        User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'phone' => '0700000001',
+            'role' => 'admin',
         ]);
+
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'phone' => '0700000002',
+            'role' => 'user',
+        ]);
+
+        Location::firstOrCreate(
+            ['name' => 'Main Location'],
+            [
+                'address' => 'Main Street',
+                'status' => 'active',
+            ]
+        );
     }
 }
