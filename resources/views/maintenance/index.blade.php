@@ -3,9 +3,9 @@
 @section('title', 'Maintenance')
 
 @section('content')
-<div class="mx-auto max-w-6xl space-y-6 bg-[#F8F9FA]">
+<div class="mx-auto max-w-6xl space-y-4 bg-[#F8F9FA] sm:space-y-6">
 
-    <section class="rounded-lg bg-[#1E3A8A] px-4 py-5 text-white shadow-md sm:px-8">
+    <section class="rounded-lg bg-[#1E3A8A] px-4 py-4 text-white shadow-md sm:px-8 sm:py-5">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div class="flex items-center gap-3">
                 <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-600">
@@ -13,7 +13,7 @@
                 </span>
                 <div>
                     <h1 class="text-xl font-semibold">Maintenance</h1>
-                    <p class="text-base text-blue-200">Manage maintenance requests</p>
+                    <p class="text-sm text-blue-200 sm:text-base">Manage maintenance requests</p>
                 </div>
             </div>
             <a href="{{ route('maintenance.create') }}" class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-[#111827] shadow-sm hover:bg-[#C7D2EF] sm:w-auto">
@@ -23,62 +23,58 @@
         </div>
     </section>
 
-    <section class="grid gap-8 sm:grid-cols-3">
-
-        <div class="bg-white px-5 py-5 rounded-lg border border-slate-200 shadow-sm ">
+    <section class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-lg border border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-5 sm:py-5">
             <div class="flex items-center justify-between">
-                <p class="text-base text-slate-600 ">Total requests</p>
+                <p class="text-sm text-slate-600 sm:text-base">Total requests</p>
                 <i class="fa-solid fa-wrench text-blue-700" aria-hidden="true"></i>
             </div>
             <p class="mt-2 text-2xl font-semibold">{{ $totalRequests ?? 0 }}</p>
-            <p class="text-base text-slate-500">All maintenance requests</p>
+            <p class="text-sm text-slate-500 sm:text-base">All maintenance requests</p>
         </div>
-        <div>
-            <div class="bg-white px-5 py-5 rounded-lg border border-slate-200 shadow-sm ">
-                <div class="flex items-center justify-between">
-                    <p class="text-base text-slate-600 ">Pending</p>
-                    <i class="fa-solid fa-clock text-amber-600" aria-hidden="true"></i>
-                </div>
-                <p class="mt-2 text-2xl font-semibold">{{ $pendingRequests ?? 0 }}</p>
-                <p class="text-base text-slate-500">Awaiting action</p>
+
+        <div class="rounded-lg border border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-5 sm:py-5">
+            <div class="flex items-center justify-between">
+                <p class="text-sm text-slate-600 sm:text-base">Pending</p>
+                <i class="fa-solid fa-clock text-amber-600" aria-hidden="true"></i>
             </div>
+            <p class="mt-2 text-2xl font-semibold">{{ $pendingRequests ?? 0 }}</p>
+            <p class="text-sm text-slate-500 sm:text-base">Awaiting action</p>
         </div>
-        <div>
-            <div class="bg-white px-5 py-5 rounded-lg border border-slate-200 shadow-sm ">
-                <div class="flex items-center justify-between">
-                    <p class="text-base text-slate-600 ">Completed</p>
-                    <i class="fa-solid fa-circle-check text-emerald-600" aria-hidden="true"></i>
-                </div>
-                <p class="mt-2 text-2xl font-semibold">{{ $completedRequests ?? 0 }}</p>
-                <p class="text-base text-slate-500">Resolved issues</p>
+
+        <div class="rounded-lg border border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-5 sm:py-5 sm:col-span-2 lg:col-span-1">
+            <div class="flex items-center justify-between">
+                <p class="text-sm text-slate-600 sm:text-base">Completed</p>
+                <i class="fa-solid fa-circle-check text-emerald-600" aria-hidden="true"></i>
             </div>
+            <p class="mt-2 text-2xl font-semibold">{{ $completedRequests ?? 0 }}</p>
+            <p class="text-sm text-slate-500 sm:text-base">Resolved issues</p>
         </div>
     </section>
 
-    <section class="bg-white px-5 py-5 rounded-lg border border-slate-200 shadow-sm  ">
-        <div class="flex items-center justify-between gap-3 border-b border-slate-200 pb-5">
+    <section class="rounded-lg border border-slate-200 bg-white px-3 py-4 shadow-sm sm:px-5 sm:py-5">
+        <div class="flex flex-col gap-3 border-b border-slate-200 pb-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <h1 class="text-xl font-semibold">Maintenance Requests</h1>
-                <p class="text-base text-slate-500">View and manage maintenance requests</p>
+                <h1 class="text-lg font-semibold sm:text-xl">Maintenance Requests</h1>
+                <p class="text-sm text-slate-500 sm:text-base">View and manage maintenance requests</p>
             </div>
 
-            <label class="relative block w-40 sm:w-44">
+            <label class="relative block w-full max-w-xs sm:w-44">
                 <span class="sr-only">Search requests</span>
                 <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-400" aria-hidden="true"></i>
-                <input type="search" placeholder="Search requests" class="w-full rounded-lg border border-slate-200 py-2 pl-8 pr-3 text-base text-slate-700 outline-none placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+                <input type="search" placeholder="Search requests" class="w-full rounded-lg border border-slate-200 py-2 pl-8 pr-3 text-sm text-slate-700 outline-none placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 sm:text-base">
             </label>
-
         </div>
 
-        <div class="mt-4 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             @forelse($maintenances ?? [] as $maintenance)
-                <article class="rounded-lg border border-slate-200 bg-slate-50 px-5 py-5 shadow-sm transition hover:border-blue-200 hover:bg-white hover:shadow-sm">
+                <article class="rounded-lg border border-slate-200 bg-slate-50 px-4 py-4 shadow-sm transition hover:border-blue-200 hover:bg-white hover:shadow-sm sm:px-5 sm:py-5">
                     <div class="flex items-start justify-between gap-3">
                         <div>
                             <h2 class="text-base font-semibold text-slate-900">Request #{{ $maintenance->id }}</h2>
                             <p class="mt-1 text-sm text-slate-500">{{ ucfirst($maintenance->priority ?? 'Normal') }}</p>
                         </div>
-                        <span class="rounded-full px-2.5 py-1 text-xs font-medium @if($maintenance->status == 'pending') bg-amber-50 text-amber-700 @elseif($maintenance->status == 'in_progress') bg-blue-50 text-blue-700 @else bg-emerald-50 text-emerald-700 @endif">
+                        <span class="rounded-full px-2.5 py-1 text-[10px] font-medium sm:text-xs @if($maintenance->status == 'pending') bg-amber-50 text-amber-700 @elseif($maintenance->status == 'in_progress') bg-blue-50 text-blue-700 @else bg-emerald-50 text-emerald-700 @endif">
                             {{ ucfirst(str_replace('_', ' ', $maintenance->status ?? 'pending')) }}
                         </span>
                     </div>
@@ -99,8 +95,6 @@
                 <p class="col-span-full py-10 text-center text-sm text-slate-500">No maintenance requests found. Add your first request to get started.</p>
             @endforelse
         </div>
-
     </section>
-
 </div>
 @endsection
