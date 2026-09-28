@@ -4,9 +4,9 @@
 <div class="min-h-screen bg-gray-50 flex flex-col">
 
     {{-- Header --}}
-    <header class="bg-gradient-to-br from-blue-800 via-blue-900 to-indigo-950 text-white px-5 sm:px-10 lg:px-16 pt-8 sm:pt-12 pb-8 sm:pb-10 flex-shrink-0 shadow-lg">
-        <h1 class="text-2xl sm:text-4xl font-extrabold mb-4 tracking-tight">Find a Location</h1>
-        <div class="bg-white rounded-2xl flex items-center gap-3 px-5 py-4 max-w-md shadow-xl shadow-blue-950/30 ring-1 ring-white/10 focus-within:ring-2 focus-within:ring-blue-400 transition-all">
+    <header class="bg-gradient-to-br from-blue-800 via-blue-900 to-indigo-950 text-white px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-6 sm:pb-8 flex-shrink-0 shadow-lg">
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-4 sm:mb-6 tracking-tight">Find a Location</h1>
+        <div class="bg-white rounded-2xl flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-4 w-full sm:max-w-md lg:max-w-lg xl:max-w-2xl shadow-xl shadow-blue-950/30 ring-1 ring-white/10 focus-within:ring-2 focus-within:ring-blue-400 transition-all">
             <svg class="w-5 h-5 text-gray-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
             </svg>
@@ -14,23 +14,23 @@
                 type="text"
                 id="searchInput"
                 placeholder="Mall, library, gym..."
-                class="w-full text-sm text-gray-900 placeholder-gray-400 outline-none border-none bg-transparent"
+                class="w-full text-sm sm:text-base text-gray-900 placeholder-gray-400 outline-none border-none bg-transparent"
             />
         </div>
     </header>
 
     {{-- Filter pills --}}
-    <div id="filters" class="flex gap-2.5 px-5 sm:px-10 lg:px-16 pt-6 pb-4 overflow-x-auto scrollbar-hide flex-shrink-0">
-        <button data-filter="all" class="pill px-6 py-3 rounded-full text-[15px] font-semibold whitespace-nowrap bg-blue-900 text-white shadow-md shadow-blue-900/20">All</button>
-        <button data-filter="mall" class="pill px-6 py-3 rounded-full text-[15px] font-semibold whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-300 transition-colors">Mall</button>
-        <button data-filter="library" class="pill px-6 py-3 rounded-full text-[15px] font-semibold whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-300 transition-colors">Library</button>
-        <button data-filter="sports" class="pill px-6 py-3 rounded-full text-[15px] font-semibold whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-300 transition-colors">Sports</button>
-        <button data-filter="station" class="pill px-6 py-3 rounded-full text-[15px] font-semibold whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-300 transition-colors">Station</button>
+    <div id="filters" class="flex flex-wrap gap-2.5 px-4 sm:px-6 lg:px-8 pt-4 pb-3 overflow-x-auto scrollbar-hide flex-shrink-0">
+        <button data-filter="all" class="pill px-5 py-2.5 sm:px-6 sm:py-3 rounded-full text-sm sm:text-base font-semibold whitespace-nowrap bg-blue-900 text-white shadow-md shadow-blue-900/20">All</button>
+        <button data-filter="mall" class="pill px-5 py-2.5 sm:px-6 sm:py-3 rounded-full text-sm sm:text-base font-semibold whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-300 transition-colors">Mall</button>
+        <button data-filter="library" class="pill px-5 py-2.5 sm:px-6 sm:py-3 rounded-full text-sm sm:text-base font-semibold whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-300 transition-colors">Library</button>
+        <button data-filter="sports" class="pill px-5 py-2.5 sm:px-6 sm:py-3 rounded-full text-sm sm:text-base font-semibold whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-300 transition-colors">Sports</button>
+        <button data-filter="station" class="pill px-5 py-2.5 sm:px-6 sm:py-3 rounded-full text-sm sm:text-base font-semibold whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-300 transition-colors">Station</button>
     </div>
 
     {{-- Location list --}}
-    <div id="list" class="px-5 sm:px-10 lg:px-16 pb-10 pt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 items-start"></div>
-    <p id="emptyMsg" class="text-center text-gray-400 text-sm py-16 hidden">No locations match your search.</p>
+    <div id="list" class="px-4 sm:px-6 lg:px-8 pb-8 pt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 items-start"></div>
+    <p id="emptyMsg" class="text-center text-gray-400 text-sm sm:text-base py-16 hidden">No locations match your search.</p>
 </div>
 
 <style>
@@ -71,10 +71,10 @@
             const s = status(loc.free_count);
             const icon = iconMap[loc.type] || iconMap.mall;
             return `
-                <a href="/locations/${loc.slug ?? loc.id}" class="flex items-center gap-4 bg-white border border-gray-100 rounded-2xl px-5 py-5 shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-blue-100 transition-all duration-150">
-                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-100 text-blue-900 flex items-center justify-center flex-shrink-0 p-3">${icon}</div>
+                <a href="/locations/${loc.slug ?? loc.id}" class="flex items-center gap-4 bg-white border border-gray-100 rounded-2xl px-4 sm:px-5 py-4 sm:py-5 shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-blue-100 transition-all duration-150">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-100 text-blue-900 flex items-center justify-center flex-shrink-0 p-3">${icon}</div>
                     <div class="flex-1 min-w-0">
-                        <p class="font-bold text-base text-gray-900 truncate">${loc.name}</p>
+                        <p class="font-bold text-sm sm:text-base text-gray-900 truncate">${loc.name}</p>
                         <p class="text-xs text-gray-400 truncate mt-1">${loc.address}</p>
                         <div class="flex items-center gap-1.5 mt-2 px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap w-fit ${s.cls}">
                             <span class="w-1.5 h-1.5 rounded-full ${s.dot}"></span>${s.label}

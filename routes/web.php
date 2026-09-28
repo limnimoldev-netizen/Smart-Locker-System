@@ -40,3 +40,6 @@ Route::get('/user/profile', function () {
 })->name('user.profile');
 
 
+
+
+Route::patch('/locker-usages/{lockerUsage}/release', [LockerUsageController::class, 'release'])->name('locker-usages.release');

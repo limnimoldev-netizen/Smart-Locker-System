@@ -27,7 +27,7 @@
     </div>
 
     {{-- Modal --}}
-    <div class=" ml-36 fixed top-0 left-0 w-screen h-screen flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
+    <div class="fixed inset-0 flex items-end sm:items-center justify-center p-0 sm:p-4 z-50">
         <div class="bg-white rounded-t-3xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl w-full sm:max-w-md">
             <div class="w-10 h-1.5 bg-gray-200 rounded-full mx-auto mb-5 sm:hidden"></div>
 

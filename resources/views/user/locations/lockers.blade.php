@@ -28,7 +28,7 @@
         <div id="lockerGrid" class="   pb-10 pt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 items-start"></div>
 
         {{-- Legend --}}
-        <div class="flex items-center justify-center gap-6 ml-44 py-3 bg-white border border-gray-100 rounded-full text-best shadow-sm max-w-md">
+        <div class="flex flex-wrap items-center justify-center gap-4 py-3 bg-white border border-gray-100 rounded-full text-sm shadow-sm max-w-md mx-auto">
             <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-green-500"></span>Available</span>
             <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-500"></span>In Use</span>
             <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-gray-400"></span>Maint.</span>
