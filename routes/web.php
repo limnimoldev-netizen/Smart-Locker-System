@@ -7,6 +7,8 @@ use App\Http\Controllers\LockerUsageController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsageHistoryController;
+
 
 
 Route::get('/', function () {
@@ -34,7 +36,13 @@ Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('user.profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('user.profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('user.profile.update');
+}); 
+
+Route::middleware('auth')->group(function () {
+    Route::get('/user/usage', [UsageHistoryController::class, 'index'])
+        ->name('user.usage.index');
 });
+
 Route::post('/logout', function (Request $request) {
     Auth::logout();
     $request->session()->invalidate();
