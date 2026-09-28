@@ -11,23 +11,24 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'name',
+        'user_id',
+        'user_code',
+        'username',
+        'full_name',
         'email',
         'phone',
-        'password',
-        'role',
+        'status'
     ];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
+    protected $casts = [
+        'status' => UserStatus::class,
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+    public function lockers() {
+        return $this->hasMany(Locker::class, 'user_id', 'user_id');
+    }
+
+    public function reportedMaintenances() {
+        return $this->hasMany(Maintenance::class, 'reported_by', 'user_id');
     }
 }

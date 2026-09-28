@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Location;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\LocationSeeder;
+use Database\Seeders\LockerSeeder;
+use Database\Seeders\MaintenanceSeeder;
+use Database\Seeders\UserSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

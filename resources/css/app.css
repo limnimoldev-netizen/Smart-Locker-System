@@ -1,1 +1,44 @@
-/* Custom styles can be added here if needed */
+ /* Custom styles can be added here if needed */
+@import "tailwindcss";
+@import "@fontsource/inter";
+@import "@fontsource/roboto-mono";
+
+@theme {
+  /* ============================================
+     TYPOGRAPHY
+     ============================================ */
+  --font-size-title: 22px;
+  --font-size-h1:    17px;
+  --font-size-h2:    16px;
+  --font-size-body:  13px;
+
+  --font-sans:    "Inter", sans-serif;
+
+  /* ============================================
+     BRAND / NEUTRAL
+     ============================================ */
+  --color-ink:      #111827;  /* was primary — main text */
+  --color-muted:    #6B7280;  /* was secondary — secondary text */
+  --color-brand:    #1E3A8A;  /* was navy — brand color */
+  --color-brand-fg: #C7D2EF;  /* was onnavy — text on brand */
+
+  /* ============================================
+     SEMANTIC STATES
+     Each has: bg / fg / border
+     ============================================ */
+
+  /* Success — green */
+  --color-success-bg:     #DCFCE7;
+  --color-success-fg:     #16A34A;
+  --color-success-border: #3BF7D0;
+
+  /* Danger / Error — red */
+  --color-danger-bg:      #FEE2E2;
+  --color-danger-fg:      #DC2626;
+  --color-danger-border:  #FECACA;
+
+  /* Warning — orange */
+  --color-warning-bg:     #FFEDD5;
+  --color-warning-fg:     #EA580C;
+  --color-warning-border: #FED7AA;
+}

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Locker;
+use App\Http\Controllers\Controller;
 use App\Models\Location;
+use App\Models\Locker;
 use Illuminate\Http\Request;
+
 
 class LockerController extends Controller
 {

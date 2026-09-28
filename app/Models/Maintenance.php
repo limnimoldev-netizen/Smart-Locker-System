@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\MaintenanceStatus;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Maintenance extends Model
 {
