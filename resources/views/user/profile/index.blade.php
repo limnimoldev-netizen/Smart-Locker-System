@@ -99,6 +99,7 @@
                 </div>
             </dl>
 
+            
             <form method="POST" action="{{ route('logout') }}" class="mt-6">
                 @csrf
                 <button type="submit"
