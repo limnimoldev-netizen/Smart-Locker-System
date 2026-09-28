@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gray-50 flex flex-col">
+<div class="w-full min-h-screen bg-gray-50 pb-12">
 
     {{-- Header --}}
-    <header class="bg-gradient-to-br from-blue-800 via-blue-900 to-indigo-950 text-white px-5 sm:px-10 lg:px-16 pt-8 sm:pt-12 pb-8 sm:pb-10 flex-shrink-0 shadow-lg">
+    <header class="bg-gradient-to-br from-blue-800 via-blue-900 to-indigo-950 text-white px-5 sm:px-10 lg:px-16 pt-8 sm:pt-12 pb-8 sm:pb-10 shadow-lg">
         <h1 class="text-2xl sm:text-4xl font-extrabold mb-4 tracking-tight">Find a Location</h1>
         <div class="bg-white rounded-2xl flex items-center gap-3 px-5 py-4 max-w-md shadow-xl shadow-blue-950/30 ring-1 ring-white/10 focus-within:ring-2 focus-within:ring-blue-400 transition-all">
             <svg class="w-5 h-5 text-gray-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -20,7 +20,7 @@
     </header>
 
     {{-- Filter pills --}}
-    <div id="filters" class="flex gap-2.5 px-5 sm:px-10 lg:px-16 pt-6 pb-4 overflow-x-auto scrollbar-hide flex-shrink-0">
+    <div id="filters" class="flex gap-2.5 px-5 sm:px-10 lg:px-16 pt-6 pb-4 overflow-x-auto scrollbar-hide">
         <button data-filter="all" class="pill px-6 py-3 rounded-full text-[15px] font-semibold whitespace-nowrap bg-blue-900 text-white shadow-md shadow-blue-900/20">All</button>
         <button data-filter="mall" class="pill px-6 py-3 rounded-full text-[15px] font-semibold whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-300 transition-colors">Mall</button>
         <button data-filter="library" class="pill px-6 py-3 rounded-full text-[15px] font-semibold whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-300 transition-colors">Library</button>
@@ -39,7 +39,8 @@
 </style>
 
 <script>
-    const locations = @json($locations);
+    const rawLocations = @json($locations ?? []);
+    const locations = Array.isArray(rawLocations) ? rawLocations : [];
 
     const iconMap = {
         mall: '<svg class="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v18"/><path d="M6 12H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2"/><path d="M18 9h2a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>',
@@ -61,21 +62,28 @@
         const list = document.getElementById('list');
         const emptyMsg = document.getElementById('emptyMsg');
 
+        if (!list || !emptyMsg) return;
+
         const filtered = locations.filter(loc => {
-            const matchesFilter = activeFilter === 'all' || loc.type === activeFilter;
-            const matchesQuery = !query || loc.name.toLowerCase().includes(query) || loc.type.toLowerCase().includes(query);
+            const locType = (loc.type || loc.category || 'mall').toLowerCase();
+            const matchesFilter = activeFilter === 'all' || locType === activeFilter;
+            const matchesQuery = !query || (loc.name && loc.name.toLowerCase().includes(query)) || locType.includes(query);
             return matchesFilter && matchesQuery;
         });
 
         list.innerHTML = filtered.map(loc => {
-            const s = status(loc.free_count);
-            const icon = iconMap[loc.type] || iconMap.mall;
+            const freeCount = loc.free_count ?? loc.available_lockers_count ?? 0;
+            const s = status(freeCount);
+            const locType = (loc.type || loc.category || 'mall').toLowerCase();
+            const icon = iconMap[locType] || iconMap.mall;
+            const address = loc.address || 'Public Location';
+            
             return `
-                <a href="/locations/${loc.slug ?? loc.id}" class="flex items-center gap-4 bg-white border border-gray-100 rounded-2xl px-5 py-5 shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-blue-100 transition-all duration-150">
+                <a href="/user/locations/${loc.id}/lockers" class="flex items-center gap-4 bg-white border border-gray-100 rounded-2xl px-5 py-5 shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-blue-100 transition-all duration-150">
                     <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-100 text-blue-900 flex items-center justify-center flex-shrink-0 p-3">${icon}</div>
                     <div class="flex-1 min-w-0">
                         <p class="font-bold text-base text-gray-900 truncate">${loc.name}</p>
-                        <p class="text-xs text-gray-400 truncate mt-1">${loc.address}</p>
+                        <p class="text-xs text-gray-400 truncate mt-1">${address}</p>
                         <div class="flex items-center gap-1.5 mt-2 px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap w-fit ${s.cls}">
                             <span class="w-1.5 h-1.5 rounded-full ${s.dot}"></span>${s.label}
                         </div>
@@ -86,7 +94,7 @@
         emptyMsg.classList.toggle('hidden', filtered.length !== 0);
     }
 
-    document.getElementById('filters').addEventListener('click', (e) => {
+    document.getElementById('filters')?.addEventListener('click', (e) => {
         const btn = e.target.closest('.pill');
         if (!btn) return;
         document.querySelectorAll('.pill').forEach(p => {
@@ -99,7 +107,7 @@
         render();
     });
 
-    document.getElementById('searchInput').addEventListener('input', (e) => {
+    document.getElementById('searchInput')?.addEventListener('input', (e) => {
         query = e.target.value.trim().toLowerCase();
         render();
     });
