@@ -25,17 +25,14 @@ class LocationController extends Controller
 
     public function store(Request $request)
     {
-        $name = $request->input('name');
-        $address = $request->input('address');
-        $map_url = $request->input('map_url');
-        $status = $request->input('status');
-
-        Location::create([
-            'name' => $name,
-            'address' => $address,
-            'map_url' => $map_url,
-            'status' => $status,
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
+            'map_url' => ['nullable', 'url', 'max:5000'],
+            'status' => ['required', 'in:active,inactive'],
         ]);
+
+        Location::create($validated);
 
         return redirect()->route('locations.index');
     }
@@ -56,18 +53,15 @@ class LocationController extends Controller
 
     public function update(Request $request, $id)
     {
-        $name = $request->input('name');
-        $address = $request->input('address');
-        $map_url = $request->input('map_url');
-        $status = $request->input('status');
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
+            'map_url' => ['nullable', 'url', 'max:5000'],
+            'status' => ['required', 'in:active,inactive'],
+        ]);
 
         $location = Location::findOrFail($id);
-        $location->update([
-            'name' => $name,
-            'address' => $address,
-            'map_url' => $map_url,
-            'status' => $status,
-        ]);
+        $location->update($validated);
 
         return redirect()->route('locations.show', $location);
     }

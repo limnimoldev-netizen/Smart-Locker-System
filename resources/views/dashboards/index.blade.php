@@ -3,35 +3,46 @@
 @section('title', 'Dashboard')
 @section('content')
 
-<div class="flex items-center justify-between w-full">
-    <div class="">
-        <h1 class="text-xl md:text-2xl font-black uppercase">Operations Dashboard</h1>
-        <p class="text-gray-400 text-xs md:text-xs">Real-time overview of your locker network performance.</p>
-    </div>
-</div>
-
-<!-- 4MiniDashboard -->
-<div class="grid grid-cols-2 md:grid-cols-4 items-center mt-5 gap-4 md:gap-6">
-    @foreach ($stats as $stat)
-    <div class="bg-gray-200 p-4 rounded-lg flex flex-col gap-1 border border-gray-100">
-        <div class="flex items-center justify-between">
-            <p class="text-xs md:text-xs text-gray-500">{{ $stat['label'] }}</p>
-            <div class="w-5 h-5 {{ $stat['class'] }} rounded-lg p-4 md:flex items-center justify-center hidden">
-                <i class="fa-solid {{ $stat['icon'] }} text-md"></i>
+<div class="mx-auto max-w-6xl space-y-6 bg-[#F8F9FA] sm:space-y-8">
+    <section class="rounded-lg bg-[#1E3A8A] px-4 py-4 text-white shadow-md sm:px-8 sm:py-5">
+        <div class="flex items-center gap-3">
+            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-600">
+                <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+            </span>
+            <div>
+                <h1 class="text-xl font-semibold">Operations Dashboard</h1>
+                <p class="text-sm text-blue-200 sm:text-base">Real-time overview of your locker network performance</p>
             </div>
         </div>
-        <h1 class="font-black {{ $stat['class_value'] }} text-2xl md:text-4xl font-display">{{ $stat['value'] }}</h1>
+    </section>
+
+<!-- 4MiniDashboard -->
+<section class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+    @foreach ($stats as $stat)
+    <div class="flex flex-col gap-2 rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+        <div class="flex items-center justify-between">
+            <p class="text-sm text-slate-600">{{ $stat['label'] }}</p>
+            <div class="hidden h-9 w-9 items-center justify-center rounded-lg {{ $stat['class'] }} md:flex">
+                <i class="fa-solid {{ $stat['icon'] }} text-sm" aria-hidden="true"></i>
+            </div>
+        </div>
+        <p class="font-display text-2xl font-black {{ $stat['class_value'] }} sm:text-3xl">{{ $stat['value'] }}</p>
         @if (!empty($stat['trend']))
-        <span class="text-xs {{ $stat['class_trend'] }} flex items-center gap-1">
+        <span class="flex items-center gap-1 text-xs {{ $stat['class_trend'] }}">
             <i class="fa-solid {{ $stat['trend_icon'] ?? 'fa-circle-info' }}"></i>{{ $stat['trend'] }}
         </span>
         @endif
     </div>
     @endforeach
-</div>
+</section>
 
-<!-- Function -->
-<div class="flex items-center mt-6" x-data="{ 
+<section class="rounded-lg border border-slate-200 bg-white px-3 py-4 shadow-sm sm:px-5 sm:py-5">
+    <div class="mb-5">
+        <h2 class="text-lg font-semibold sm:text-xl">Locker Overview</h2>
+        <p class="text-sm text-slate-500">Search, filter, and manage lockers across all locations.</p>
+    </div>
+
+<div class="mb-5 flex items-center" x-data="{ 
     search: '{{ request('search') }}',
     status: '{{ request('status') }}',
     debounceTimer: null,
@@ -80,29 +91,29 @@
     </form>
 </div>
 
-<div class="overflow-x-auto shadow-sm border border-gray-200 rounded-lg mt-5">
-    <table class="min-w-full divide-y divide-gray-200">
+<div class="-mx-3 overflow-x-auto border-y border-slate-200 sm:-mx-5">
+    <table class="min-w-full divide-y divide-slate-200">
         
         <!-- TABLE HEADER -->
-        <thead class="bg-gray-50">
+        <thead class="bg-slate-50">
             <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Locker Number</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Location</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Address</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Action</th>
+                <th scope="col" class="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Locker Number</th>
+                <th scope="col" class="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Location</th>
+                <th scope="col" class="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Address</th>
+                <th scope="col" class="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Status</th>
+                <th scope="col" class="px-5 py-3 text-right text-xs font-semibold uppercase tracking-wide text-slate-500">Action</th>
 
             </tr>
         </thead>
 
         <!-- TABLE BODY -->
-        <tbody class="bg-white divide-y divide-gray-200">
+        <tbody class="divide-y divide-slate-100 bg-white">
             @forelse($dataLockers as $locker)
-            <tr class="hover:bg-gray-50 transition-colors duration-150">
-                <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-900">{{ $locker->locker_number }}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-900">{{ $locker->dashboard_location_name ?? '_' }}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-900">{{ $locker->dashboard_location_address ?? '_' }}</td>
-                <td class="px-6 py-4 whitespace-nowrap">
+            <tr class="text-slate-700 transition-colors hover:bg-slate-50">
+                <td class="whitespace-nowrap px-5 py-4 text-sm font-medium text-slate-900">{{ $locker->locker_number }}</td>
+                <td class="whitespace-nowrap px-5 py-4 text-sm">{{ $locker->dashboard_location_name ?? '_' }}</td>
+                <td class="whitespace-nowrap px-5 py-4 text-sm">{{ $locker->dashboard_location_address ?? '_' }}</td>
+                <td class="whitespace-nowrap px-5 py-4">
                     @php
                         $status = (string) $locker->status;
                         $statusLabel = \App\Enums\LockerStatus::tryFrom($status)?->label() ?? \Illuminate\Support\Str::headline($status);
@@ -118,7 +129,7 @@
                         {{ $statusLabel }}
                     </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <td class="whitespace-nowrap px-5 py-4 text-right text-sm font-medium">
                     <div class="flex items-center justify-end space-x-2">
                         <a href="{{ route('lockers.edit', $locker->id) }}" 
                            class="text-blue-600 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-md transition-colors text-xs font-semibold">
@@ -138,7 +149,7 @@
             </tr>
             @empty
             <tr>
-                <td colspan="5" class="px-6 py-4 text-center text-xs text-gray-400">
+                <td colspan="5" class="px-5 py-8 text-center text-sm text-slate-500">
                     No lockers yet
                 </td>
             </tr>
@@ -146,9 +157,11 @@
         </tbody>
 
     </table>
-    <div class="px-6 py-4 border-t border-gray-200">
+    <div class="px-5 py-4">
         {{ $dataLockers->links() }}
     </div>
+</div>
+</section>
 </div>
 @endsection
 

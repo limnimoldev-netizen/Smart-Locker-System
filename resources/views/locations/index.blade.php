@@ -3,7 +3,7 @@
 @section('title', 'Manage Locations')
 
 @section('content')
-    <div class="mx-auto max-w-6xl space-y-4 bg-[#F8F9FA] sm:space-y-6">
+    <div class="mx-auto max-w-6xl space-y-6 bg-[#F8F9FA] sm:space-y-8">
 
         <section class="rounded-xl bg-[#1E3A8A] px-4 py-4 text-white shadow-md sm:rounded-lg sm:px-8 sm:py-5">
             <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -23,7 +23,7 @@
             </div>
         </section>
 
-        <section class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <section class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <div class="rounded-lg border border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-5 sm:py-5">
                 <div class="flex items-center justify-between gap-3">
                     <p class="text-sm text-slate-600 sm:text-base">Total locations</p>
@@ -66,7 +66,7 @@
                 </label>
             </div>
 
-            <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 @forelse ($locations as $location)
                     <article class="rounded-lg border border-slate-200 bg-slate-50 px-4 py-4 shadow-sm transition hover:border-blue-200 hover:bg-white hover:shadow-sm sm:px-5 sm:py-5">
                         <div class="flex items-start justify-between gap-3">
