@@ -1,66 +1,113 @@
 @extends('layouts.app')
 
+@section('title', 'My Profile')
+
 @section('content')
-<div class="max-w-5xl mx-auto px-6 py-10">
+@php
+    $initial = strtoupper(substr($user->name, 0, 1));
 
-    {{-- Header card --}}
-    <div class="bg-blue-900 rounded-3xl px-10 py-10 flex items-center gap-8">
-        <div class="w-28 h-28 flex-shrink-0 rounded-full border-4 border-white flex items-center justify-center">
-            <svg class="w-14 h-14 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-            </svg>
+    $menu = [
+        ['title' => 'Edit Profile',      'desc' => 'Update your name, email and phone',  'href' => route('user.profile.edit'),  'icon' => 'fa-pen',                'tile' => 'bg-[#1E3A8A]/10 text-[#1E3A8A]'],
+        ['title' => 'Notification',      'desc' => 'Alerts about your bookings',          'href' => '#',                         'icon' => 'fa-bell',               'tile' => 'bg-[#FFEDD5] text-[#EA580C]'],
+        ['title' => 'Usage History',     'desc' => 'Your past locker sessions',           'href' => route('user.usage.index'),   'icon' => 'fa-clock-rotate-left',  'tile' => 'bg-[#DCFCE7] text-[#16A34A]'],
+        ['title' => 'Privacy & Security','desc' => 'Password and account safety',         'href' => '#',                         'icon' => 'fa-lock',               'tile' => 'bg-[#1E3A8A]/10 text-[#1E3A8A]'],
+    ];
+@endphp
+
+<div class="mx-auto max-w-6xl space-y-6">
+
+    @if (session('status'))
+        <div class="rounded-lg border border-[#BBF7D0] bg-[#DCFCE7] px-4 py-3 text-sm font-medium text-[#16A34A]">
+            <i class="fa-solid fa-circle-check mr-2" aria-hidden="true"></i>{{ session('status') }}
         </div>
-        <div>
-            <h1 class="text-white text-2xl font-bold">{{ $user->name }}</h1>
-            <p class="text-blue-200 text-sm mt-1">{{ $user->email }}</p>
+    @endif
+
+    {{-- 1. Hero: banner + big profile circle --}}
+    <section class="overflow-hidden rounded-xl bg-white shadow-sm">
+        <div class="h-32 bg-gradient-to-r from-[#1E3A8A] to-[#2f4da2]"></div>
+
+        <div class="flex flex-col gap-5 px-6 pb-6 sm:flex-row sm:items-end sm:justify-between sm:px-8">
+            <div class="-mt-14 flex flex-col items-center gap-4 sm:flex-row sm:items-end">
+                <div class="flex h-28 w-28 shrink-0 items-center justify-center rounded-full bg-[#1E3A8A] text-4xl font-bold text-white ring-4 ring-white">
+                    {{ $initial }}
+                </div>
+                <div class="pb-1 text-center sm:text-left">
+                    <div class="flex flex-wrap items-center justify-center gap-3 sm:justify-start">
+                        <h1 class="text-2xl font-semibold text-[#111827]">{{ $user->name }}</h1>
+                        <span class="rounded-full border border-[#BBF7D0] bg-[#DCFCE7] px-3 py-1 text-xs font-semibold text-[#16A34A]">
+                            {{ ucfirst($user->role ?? 'user') }}
+                        </span>
+                    </div>
+                    <p class="mt-1 break-all text-base text-[#6B7280]">{{ $user->email }}</p>
+                </div>
+            </div>
+
+            <a href="{{ route('user.profile.edit') }}"
+               class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700">
+                <i class="fa-solid fa-pen text-xs" aria-hidden="true"></i>
+                Edit profile
+            </a>
         </div>
-    </div>
+    </section>
 
-    {{-- Menu grid --}}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+    <div class="grid gap-6 lg:grid-cols-3">
 
-        <a href="{{ route('profile.edit') }}"
-           class="flex flex-col items-start gap-3 border border-gray-300 rounded-2xl px-6 py-6 hover:border-blue-900 hover:shadow-md transition">
-            <svg class="w-6 h-6 text-blue-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125" />
-            </svg>
-            <span class="font-semibold text-gray-800">Edit Profile</span>
-        </a>
+        {{-- 2. Account settings (2/3 width) --}}
+        <section class="rounded-xl bg-white p-6 shadow-sm lg:col-span-2">
+            <h2 class="text-xl font-semibold text-[#111827]">Account Settings</h2>
+            <p class="mt-1 text-base text-[#6B7280]">Manage your profile, activity and security</p>
 
-        <a href="#"
-           class="flex flex-col items-start gap-3 border border-gray-300 rounded-2xl px-6 py-6 hover:border-blue-900 hover:shadow-md transition">
-            <svg class="w-6 h-6 text-blue-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-            </svg>
-            <span class="font-semibold text-gray-800">Notification</span>
-        </a>
+            <div class="mt-4 divide-y divide-slate-100">
+                @foreach ($menu as $item)
+                    <a href="{{ $item['href'] }}"
+                       class="group flex items-center gap-4 rounded-lg px-3 py-4 transition hover:bg-slate-50">
+                        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl {{ $item['tile'] }}">
+                            <i class="fa-solid {{ $item['icon'] }}" aria-hidden="true"></i>
+                        </span>
+                        <span class="flex-1">
+                            <span class="block text-base font-semibold text-[#111827]">{{ $item['title'] }}</span>
+                            <span class="block text-sm text-[#6B7280]">{{ $item['desc'] }}</span>
+                        </span>
+                        <i class="fa-solid fa-chevron-right text-xs text-slate-300 transition group-hover:translate-x-0.5 group-hover:text-[#1E3A8A]" aria-hidden="true"></i>
+                    </a>
+                @endforeach
+            </div>
+        </section>
 
-        <a href="#"
-           class="flex flex-col items-start gap-3 border border-gray-300 rounded-2xl px-6 py-6 hover:border-blue-900 hover:shadow-md transition">
-            <svg class="w-6 h-6 text-blue-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-            </svg>
-            <span class="font-semibold text-gray-800">Usage History</span>
-        </a>
+        {{-- 3. Account details + logout (1/3 width) --}}
+        <section class="self-start rounded-xl bg-white p-6 shadow-sm">
+            <h2 class="text-xl font-semibold text-[#111827]">Account Details</h2>
 
-        <a href="#"
-           class="flex flex-col items-start gap-3 border border-gray-300 rounded-2xl px-6 py-6 hover:border-blue-900 hover:shadow-md transition">
-            <svg class="w-6 h-6 text-blue-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-            </svg>
-            <span class="font-semibold text-gray-800">Privacy & Security</span>
-        </a>
-    </div>
+            <dl class="mt-4 space-y-5">
+                <div>
+                    <dt class="text-xs uppercase tracking-wide text-[#6B7280]">Full name</dt>
+                    <dd class="mt-1 text-base font-medium text-[#111827]">{{ $user->name }}</dd>
+                </div>
+                <div>
+                    <dt class="text-xs uppercase tracking-wide text-[#6B7280]">Email</dt>
+                    <dd class="mt-1 break-all text-base font-medium text-[#111827]">{{ $user->email }}</dd>
+                </div>
+                <div>
+                    <dt class="text-xs uppercase tracking-wide text-[#6B7280]">Mobile number</dt>
+                    <dd class="mt-1 text-base font-medium {{ $user->phone ? 'text-[#111827]' : 'text-slate-400' }}">
+                        {{ $user->phone ?: 'Not added yet' }}
+                    </dd>
+                </div>
+                <div>
+                    <dt class="text-xs uppercase tracking-wide text-[#6B7280]">Member since</dt>
+                    <dd class="mt-1 text-base font-medium text-[#111827]">{{ $user->created_at?->format('d M Y') ?? '-' }}</dd>
+                </div>
+            </dl>
 
-    {{-- Logout --}}
-    <div class="mt-8">
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit"
-                class="bg-red-100 text-red-500 font-semibold px-10 py-3 rounded-full hover:bg-red-200 transition">
-                Log Out
-            </button>
-        </form>
+            <form method="POST" action="{{ route('logout') }}" class="mt-6">
+                @csrf
+                <button type="submit"
+                    class="flex w-full items-center justify-center gap-2 rounded-lg bg-[#FEE2E2] px-4 py-3 text-sm font-semibold text-[#DC2626] transition hover:bg-[#FECACA]">
+                    <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+                    Log Out
+                </button>
+            </form>
+        </section>
     </div>
 </div>
 @endsection

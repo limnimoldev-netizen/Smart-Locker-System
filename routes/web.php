@@ -5,6 +5,7 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LockerController;
 use App\Http\Controllers\LockerUsageController;
 use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,9 +31,9 @@ Route::get('/user/lockers', [LockerController::class, 'userIndex'])->name('user.
 Route::get('/user/usage', [LockerUsageController::class, 'index'])->name('user.usage.index');
 
 Route::middleware('auth')->prefix('user')->group(function () {
-Route::get('/profile', [UserController::class, 'index'])->name('profile.show');
-Route::get('/profile/edit', [UserController::class, 'edit'])->name('profile.edit');
-Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('user.profile');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('user.profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('user.profile.update');
 });
 Route::post('/logout', function (Request $request) {
     Auth::logout();
