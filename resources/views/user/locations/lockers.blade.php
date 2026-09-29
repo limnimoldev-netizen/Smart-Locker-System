@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gray-50 flex flex-col">
+<div class="min-h-screen bg-gray-50 flex flex-col" id="locationLockerPage" data-lockers="{{ json_encode($lockers) }}">
 
     {{-- Header --}}
     <header class="rounded-xl bg-[#1E3A8A] px-4 py-4 text-white shadow-md sm:rounded-lg sm:px-8 sm:py-5">
@@ -50,7 +50,7 @@
 </div>
 
 <script>
-    const lockers = @json($lockers);
+    const lockers = JSON.parse(document.getElementById('locationLockerPage').dataset.lockers);
     let selected = null;
 
     function statusMeta(status) {
@@ -106,7 +106,7 @@
 
     document.getElementById('selectBtn').addEventListener('click', () => {
         if (!selected || selected.status !== 'available') return;
-        window.location.href = `/lockers/${selected.id}/confirm`;
+        window.location.href = `/user/lockers/${selected.id}/confirm`;
     });
 
     renderGrid();

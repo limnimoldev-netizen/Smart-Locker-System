@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('title', 'Find Location')
 @section('content')
-<div class="min-h-screen bg-gray-50 flex flex-col">
+<div class="mx-auto max-w-6xl space-y-6 bg-[#F8F9FA] sm:space-y-8" id="locationSearchPage" data-locations="{{ json_encode($locations) }}">
 
     {{-- Header --}}
     <header class="rounded-xl bg-[#1E3A8A] px-4 py-4 text-white shadow-md sm:rounded-lg sm:px-8 sm:py-5">
         <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-4 sm:mb-6 tracking-tight">Find a Location</h1>
-        <div class="bg-white rounded-2xl flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-4 w-full sm:max-w-md lg:max-w-lg xl:max-w-2xl shadow-xl shadow-blue-950/30 ring-1 ring-white/10 focus-within:ring-2 focus-within:ring-blue-400 transition-all">
+        <div class="bg-white  rounded-lg flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-4 w-full sm:max-w-md lg:max-w-lg xl:max-w-2xl shadow-xl shadow-blue-950/30 ring-1 ring-white/10 focus-within:ring-2 focus-within:ring-blue-400 transition-all">
             <svg class="w-5 h-5 text-gray-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
             </svg>
@@ -39,7 +39,7 @@
 </style>
 
 <script>
-    const locations = @json($locations);
+    const locations = JSON.parse(document.getElementById('locationSearchPage').dataset.locations);
 
     const iconMap = {
         mall: '<svg class="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v18"/><path d="M6 12H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2"/><path d="M18 9h2a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>',
@@ -71,7 +71,7 @@
             const s = status(loc.free_count);
             const icon = iconMap[loc.type] || iconMap.mall;
             return `
-                <a href="/locations/${loc.slug ?? loc.id}" class="flex items-center gap-4 bg-white border border-gray-100 rounded-2xl px-4 sm:px-5 py-4 sm:py-5 shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-blue-100 transition-all duration-150">
+                <a href="/user/locations/${loc.id}" class="flex items-center gap-4 bg-white border border-gray-100 rounded-2xl px-4 sm:px-5 py-4 sm:py-5 shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-blue-100 transition-all duration-150">
                     <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-100 text-blue-900 flex items-center justify-center flex-shrink-0 p-3">${icon}</div>
                     <div class="flex-1 min-w-0">
                         <p class="font-bold text-sm sm:text-base text-gray-900 truncate">${loc.name}</p>

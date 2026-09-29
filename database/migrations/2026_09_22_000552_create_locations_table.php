@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('locations', function (Blueprint $table) {
-            $table->string('location_id')->primary();
-            $table->string('location_name');
-            $table->string('address');
-            $table->string('opening_hours');
-            $table->unsignedBigInteger('capacity');
-            $table->unsignedBigInteger('current_locker_count')->default(0);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('locations')) {
+            Schema::create('locations', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('address');
+                $table->string('type')->default('mall');
+                $table->text('map_url')->nullable();
+                $table->string('status')->default('active');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('locations');
+        // The locations table is owned by the first create migration.
     }
 };

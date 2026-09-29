@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\UserStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -24,12 +24,10 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => 'USR-' . strtoupper(Str::random(6)),
-            'user_code' => strtoupper(Str::random(8)),
-            'username' => $this->faker->unique()->userName(),
-            'full_name' => $this->faker->name(),
+            'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'phone' => $this->faker->optional()->phoneNumber(),
+            'password' => static::$password ??= Hash::make('password'),
+            'role' => 'user',
             'status' => $this->faker->randomElement(UserStatus::cases()),
         ];
     }

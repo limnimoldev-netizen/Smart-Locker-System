@@ -70,25 +70,25 @@
             <p class="mb-3 px-3 text-[11px] font-medium uppercase tracking-wider text-blue-100/55">Your locker</p>
             <ul class="space-y-1.5">
                 <li>
-                    <a href="/dashboard" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('dashboard') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
+                    <a href="{{ route('user.dashboard') }}" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('user/dashboard') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
                         <i class="fa-solid fa-house w-4 text-center text-[13px]" aria-hidden="true"></i>
                         <span class="flex-1">Home</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/user/locations" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('user/locations*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
+                    <a href="{{ route('user.locations.index') }}" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('user/locations*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
                         <i class="fa-solid fa-location-dot w-4 text-center text-[13px]" aria-hidden="true"></i>
                         <span class="flex-1">Find a Locker</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/user/lockers" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('user/lockers*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
+                    <a href="{{ route('user.lockers.index') }}" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('user/lockers*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
                         <i class="fa-solid fa-box w-4 text-center text-[13px]" aria-hidden="true"></i>
                         <span class="flex-1">My Locker</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/user/usage" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('user/usage*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
+                    <a href="{{ route('user.usage.index') }}" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('user/usage*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
                         <i class="fa-solid fa-clock-rotate-left w-4 text-center text-[13px]" aria-hidden="true"></i>
                         <span class="flex-1">Usage History</span>
                     </a>
@@ -98,7 +98,7 @@
             <p class="mb-3 mt-7 px-3 text-[11px] font-medium uppercase tracking-wider text-blue-100/55">Account</p>
             <ul class="space-y-1.5">
                 <li>
-                    <a href="/user/profile" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('user/profile*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
+                    <a href="{{ route('user.profile') }}" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-blue-100/90 transition-colors hover:bg-white/10 hover:text-white {{ request()->is('user/profile*') ? 'bg-[#2f4da2] text-white shadow-sm' : '' }}">
                         <i class="fa-solid fa-user w-4 text-center text-[13px]" aria-hidden="true"></i>
                         <span class="flex-1">Profile</span>
                     </a>

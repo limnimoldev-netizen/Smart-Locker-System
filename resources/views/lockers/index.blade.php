@@ -3,13 +3,6 @@
 @section('title', 'Manage Lockers')
 
 @section('content')
-<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-        <div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Manage Lockers</h1>
-            <p class="text-gray-500 mt-1">View and manage all lockers across locations</p>
-        </div>
-    </div>
 
     <div class="mx-auto max-w-6xl space-y-4 bg-[#F8F9FA] sm:space-y-6">
 

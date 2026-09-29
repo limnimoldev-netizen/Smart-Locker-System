@@ -8,15 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('lockers', function (Blueprint $table) {
-            $table->string('locker_number')->nullable()->after('id');
-        });
+        if (!Schema::hasColumn('lockers', 'locker_number')) {
+            Schema::table('lockers', function (Blueprint $table) {
+                $table->string('locker_number')->nullable()->after('id');
+            });
+        }
     }
 
     public function down(): void
     {
-        Schema::table('lockers', function (Blueprint $table) {
-            $table->dropColumn('locker_number');
-        });
+        // locker_number is part of the base lockers table.
     }
 };

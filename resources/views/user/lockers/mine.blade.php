@@ -16,7 +16,7 @@
                     <p class="text-sm text-blue-200 sm:text-base">Lockers you are using right now</p>
                 </div>
             </div>
-            <a href="/locations/create" class="inline-block mt-5 bg-blue-900 text-white font-semibold rounded-2xl px-8 py-3 hover:bg-blue-950 transition-colors">Find a Locker</a>
+            <a href="{{ route('user.locations.index') }}" class="inline-block mt-5 bg-blue-900 text-white font-semibold rounded-2xl px-8 py-3 hover:bg-blue-950 transition-colors">Find a Locker</a>
                 </div>
     </section>
 
@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-            <form method="POST" action="/locker-usages/{{ $usage->id }}/release" class="mt-5">
+            <form method="POST" action="{{ route('user.locker-usages.release', $usage) }}" class="mt-5">
                 @csrf
                 @method('PATCH')
                 <button type="submit" class="w-full bg-red-100 text-red-600 font-bold rounded-2xl py-3 hover:bg-red-200 transition-colors">Release Locker</button>
@@ -52,7 +52,7 @@
         <div class="lg:col-span-2 bg-white border border-gray-100 rounded-2xl p-10 text-center shadow-sm">
             <p class="text-lg font-bold text-gray-900">You are not using a locker</p>
             <p class="text-sm text-gray-500 mt-1">Find a location and pick a locker to get started.</p>
-            <a href="/user/locations" class="inline-block mt-5 bg-blue-900 text-white font-semibold rounded-2xl px-8 py-3 hover:bg-blue-950 transition-colors">Find a Locker</a>
+            <a href="{{ route('user.locations.index') }}" class="inline-block mt-5 bg-blue-900 text-white font-semibold rounded-2xl px-8 py-3 hover:bg-blue-950 transition-colors">Find a Locker</a>
         </div>
         @endforelse
     </div>

@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Enums\LockerStatus;
 use App\Models\Location;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -21,11 +20,10 @@ class LockerFactory extends Factory
     public function definition(): array
     {   
         return [
-            'locker_id' => 'LKR-' . strtoupper(Str::random(6)),
-            'locker_code' => strtoupper(Str::random(8)),
-            'location_id' => Location::inRandomOrder()->value('location_id'),
-            'user_id' => User::inRandomOrder()->value('user_id'),
-            'status' => $this->faker->randomElement(LockerStatus::cases()),    
+            'locker_number' => strtoupper(Str::random(6)),
+            'location_id' => Location::query()->inRandomOrder()->value('id'),
+            'type' => $this->faker->randomElement(['standard', 'large']),
+            'status' => $this->faker->randomElement(LockerStatus::cases())->value,
         ];
     }
 }

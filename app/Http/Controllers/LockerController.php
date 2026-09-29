@@ -5,31 +5,51 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Location;
 use App\Models\Locker;
+use App\Models\LockerUsage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 
 class LockerController extends Controller
 {
     public function confirm(Locker $locker)
     {
+        abort_unless($locker->status === 'available', 404);
+
         $location = $locker->location;
 
         return view('user.lockers.confirm', compact('locker', 'location'));
     }
 
-    public function store(Locker $locker)
+    public function startUsage(Locker $locker)
     {
-        $usage = LockerUsage::create([
-            'locker_id' => $locker->id,
-            'user_id' => auth()->id() ?? 1,
-            'access_code' => strtoupper(substr(md5(uniqid()), 0, 6)),
-            'status' => 'active',
-            'started_at' => now(),
-        ]);
+        $usage = DB::transaction(function () use ($locker) {
+            $locker = Locker::query()->lockForUpdate()->findOrFail($locker->getKey());
 
-        $locker->update(['status' => 'in_use']);
+            if ($locker->status !== 'available') {
+                return null;
+            }
 
-        return redirect('/user/lockers');
+            $usage = LockerUsage::create([
+                'locker_id' => $locker->id,
+                'user_id' => Auth::id(),
+                'access_code' => Str::upper(Str::random(6)),
+                'status' => 'active',
+                'started_at' => now(),
+            ]);
+
+            $locker->update(['status' => 'in_use']);
+
+            return $usage;
+        });
+
+        if ($usage === null) {
+            return redirect()->route('user.locations.index')->with('error', 'That locker is no longer available.');
+        }
+
+        return redirect()->route('user.lockers.index');
     }
 
     // Admin list: /lockers
@@ -109,7 +129,7 @@ class LockerController extends Controller
     public function userIndex()
     {
         $usages = LockerUsage::with('locker.location')
-            ->where('user_id', auth()->id() ?? 1)
+            ->where('user_id', Auth::id())
             ->where('status', 'active')
             ->latest('started_at')
             ->get();

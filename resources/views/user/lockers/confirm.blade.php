@@ -34,7 +34,7 @@
                 Are you sure you want to use Locker {{ $locker->locker_number }} at {{ $location->name }}? It will be reserved under your account.
             </p>
 
-            <form method="POST" action="/lockers/{{ $locker->id }}/confirm" class="mt-5">
+            <form method="POST" action="{{ route('user.lockers.confirm.store', $locker) }}" class="mt-5">
                 @csrf
                 <button type="submit" class="w-full bg-blue-900 text-white font-bold rounded-2xl py-4 hover:bg-blue-950 transition-colors">
                     Confirm &amp; Unlock

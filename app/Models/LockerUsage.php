@@ -11,7 +11,8 @@ class LockerUsage extends Model
         'user_id',
         'locker_id',
         'started_at',
-        'release_at',
+        'ended_at',
+        'access_code',
         'status',
     ];
 

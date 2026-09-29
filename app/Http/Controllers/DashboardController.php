@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    public function userIndex()
+    {
+        return view('user.dashboard.index');
+    }
+
     public function index(Request $request)
     {
         // Location

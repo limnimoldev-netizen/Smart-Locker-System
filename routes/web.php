@@ -11,7 +11,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Middleware\AdminAccess;
 use App\Http\Middleware\UserAccess;
-use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login');
 
@@ -34,14 +33,7 @@ Route::middleware('guest')->group(function () {
         ->name('password.request');
 });
 
-Route::patch('/locker-usages/{lockerUsage}/release', [LockerUsageController::class, 'release'])->name('locker-usages.release');
-Route::get('/locations/search', [LocationController::class, 'search']);
-Route::get('/locations/{location}', [LocationController::class, 'show']);
-Route::get('/locations/{location}/lockers', [LocationController::class, 'lockers']);
-Route::get('/locker-usages/{locker_usage}', [LockerUsageController::class, 'show']);
-Route::patch('/locker-usages/{locker_usage}/release', [LockerUsageController::class, 'release']);
-Route::get('/lockers/{locker}/confirm', [LockerController::class, 'confirm']);
-Route::post('/lockers/{locker}/confirm', [LockerController::class, 'store']);
+
 // Logged-in users only
 Route::middleware('auth')->group(function () {
 
@@ -80,12 +72,18 @@ Route::middleware('auth')->group(function () {
         Route::delete('/maintenance/{maintenance}', [MaintenanceController::class, 'destroy'])->name('maintenance.destroy');
     });
 
-    Route::middleware(UserAccess::class)->group(function () {
-        Route::get('/user/dashboard', [DashboardController::class, 'userIndex'])->name('user.dashboard');
-        Route::get('/user/locations', [LocationController::class, 'userIndex'])->name('user.locations.index');
-        Route::get('/user/lockers', [LockerController::class, 'userIndex'])->name('user.lockers.index');
-        Route::get('/user/usage', [LockerUsageController::class, 'index'])->name('user.usage.index');
-        Route::view('/user/profile', 'user.profile.index')->name('user.profile');
+    Route::middleware(UserAccess::class)->prefix('user')->name('user.')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'userIndex'])->name('dashboard');
+        Route::get('/locations', [LocationController::class, 'userIndex'])->name('locations.index');
+        Route::get('/locations/{location}', [LocationController::class, 'userShow'])->name('locations.show');
+        Route::get('/locations/{location}/lockers', [LocationController::class, 'lockers'])->name('locations.lockers');
+        Route::get('/lockers', [LockerController::class, 'userIndex'])->name('lockers.index');
+        Route::get('/lockers/{locker}/confirm', [LockerController::class, 'confirm'])->name('lockers.confirm');
+        Route::post('/lockers/{locker}/confirm', [LockerController::class, 'startUsage'])->name('lockers.confirm.store');
+        Route::get('/usage', [LockerUsageController::class, 'index'])->name('usage.index');
+        Route::get('/locker-usages/{lockerUsage}', [LockerUsageController::class, 'show'])->name('usage.show');
+        Route::patch('/locker-usages/{lockerUsage}/release', [LockerUsageController::class, 'release'])->name('locker-usages.release');
+        Route::view('/profile', 'user.profile.index')->name('profile');
     });
 
     Route::post('/logout', [LoginController::class, 'destroy'])

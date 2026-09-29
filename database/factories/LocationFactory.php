@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Location>
@@ -83,18 +82,10 @@ class LocationFactory extends Factory
         ];
         
         return [
-            'location_id' => 'LOC-' . strtoupper(Str::random(6)),
-            'location_name' => $this->faker->randomElement($names),
+            'name' => $this->faker->randomElement($names),
             'address' => $this->faker->address(),
-            'opening_hours' => $this->faker->randomElement([
-                'Mon-Fri 08:00-22:00',
-                'Mon-Sun 06:00-22:00',
-                'Daily 24/7',
-                'Mon-Sat 09:00-21:00',
-                'Sat-Sun 06:00-17:00',
-            ]),
-            'capacity' => $this->faker->numberBetween(20, 150),
-            'current_locker_count' => 0,
+            'type' => $this->faker->randomElement(['mall', 'library', 'sports', 'station']),
+            'status' => 'active',
         ];
     }
 }

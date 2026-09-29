@@ -12,21 +12,22 @@ class Location extends Model
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'location_id',
-        'location_name',
+        'name',
         'address',
-        'opening_hours',
-        'capacity',
-        'current_locker_count',
-        'status',
+        'type',
+        'latitude',
+        'longitude',
         'map_url',
+        'status',
     ];
 
-    public function lockers() {
-        return $this->hasMany(Locker::class, 'location_id', 'location_id');
+    public function lockers()
+    {
+        return $this->hasMany(Locker::class);
     }
 
-    public function maintenances() {
-        return $this->hasMany(Maintenance::class, 'location_id', 'location_id');
+    public function maintenances()
+    {
+        return $this->hasMany(Maintenance::class);
     }
 }

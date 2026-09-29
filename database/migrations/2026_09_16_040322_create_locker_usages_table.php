@@ -12,16 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('locker_usages', function (Blueprint $table) {
-            $table->string('locker_usage_id')->primary();
-            $table->string('locker_id', 20)->index();
-            $table->string('location_id', 20)->index();
-            $table->string('user_id', 20)->index();
-            $table->dateTime('check_in_time')->index();
-            $table->dateTime('check_out_time')->nullable();
-            $table->unsignedInteger('duration_minutes')->nullable();
-            $table->unsignedInteger('action_count')->default(0);
-            $table->string('last_action', 30)->nullable();
-            $table->string('status', 20)->default('Active')->index();
+            $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('locker_id')->constrained()->cascadeOnDelete();
+            $table->string('access_code', 12);
+            $table->timestamp('started_at');
+            $table->timestamp('ended_at')->nullable();
+            $table->string('status', 20)->default('active')->index();
             $table->timestamps();
         });
     }

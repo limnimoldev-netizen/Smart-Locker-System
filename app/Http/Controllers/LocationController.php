@@ -17,7 +17,7 @@ class LocationController extends Controller
         return view('user.locations.search', compact('locations'));
     }
 
-    public function show(Location $location)
+    public function userShow(Location $location)
     {
         $lockers = $location->lockers;
 
@@ -30,19 +30,24 @@ class LocationController extends Controller
 
     public function lockers(Location $location)
     {
-        return view('locations.index', [
-            'locations' => Location::latest()->get(),
-            'totalLocations' => Location::count(),
-            'activeLocations' => Location::where('status', 'active')->count(),
-            'totalLockers' => Locker::count(),
-        ]);
+        $lockers = $location->lockers()->orderBy('locker_number')->get();
+
+        return view('user.locations.lockers', compact('location', 'lockers'));
     }
 
     public function index()
     {
         $locations = Location::withCount('lockers')->get();
+        $totalLocations = Location::count();
+        $activeLocations = Location::where('status', 'active')->count();
+        $totalLockers = Locker::count();
 
-        return view('user.locations.index', compact('locations'));
+        return view('locations.index', compact('locations', 'totalLocations', 'activeLocations', 'totalLockers'));
+    }
+
+    public function create()
+    {
+        return view('locations.create');
     }
 
     public function store(Request $request)

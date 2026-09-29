@@ -49,7 +49,7 @@
             </div>
 
             {{-- View Lockers button --}}
-            <a href="/locations/{{ $location->id }}/lockers" class="block sm:inline-block text-center bg-blue-900 text-white font-semibold rounded-2xl py-4 px-10 mt-6 hover:bg-blue-950 transition-colors">
+            <a href="{{ route('user.locations.lockers', $location) }}" class="block sm:inline-block text-center bg-blue-900 text-white font-semibold rounded-2xl py-4 px-10 mt-6 hover:bg-blue-950 transition-colors">
                 View Lockers
             </a>
         </div>

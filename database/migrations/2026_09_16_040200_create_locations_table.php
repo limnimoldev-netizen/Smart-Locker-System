@@ -13,10 +13,10 @@ return new class extends Migration
                 $table->id();
                 $table->string('name');
                 $table->string('address');
-                $table->string('type');
-                $table->string('latitude');
-                $table->string('longitude');
-                $table->string('map_url');
+                $table->string('type')->default('mall');
+                $table->string('latitude')->nullable();
+                $table->string('longitude')->nullable();
+                $table->text('map_url')->nullable();
                 $table->string('status');
                 $table->timestamps();
             });

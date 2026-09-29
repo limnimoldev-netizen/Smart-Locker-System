@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Database\Seeders\LocationSeeder;
-use Database\Seeders\LockerSeeder;
-use Database\Seeders\MaintenanceSeeder;
-use Database\Seeders\UserSeeder;
+use App\Models\Location;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
