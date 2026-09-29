@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LockerController;
@@ -33,6 +34,14 @@ Route::middleware('guest')->group(function () {
         ->name('password.request');
 });
 
+Route::patch('/locker-usages/{lockerUsage}/release', [LockerUsageController::class, 'release'])->name('locker-usages.release');
+Route::get('/locations/search', [LocationController::class, 'search']);
+Route::get('/locations/{location}', [LocationController::class, 'show']);
+Route::get('/locations/{location}/lockers', [LocationController::class, 'lockers']);
+Route::get('/locker-usages/{locker_usage}', [LockerUsageController::class, 'show']);
+Route::patch('/locker-usages/{locker_usage}/release', [LockerUsageController::class, 'release']);
+Route::get('/lockers/{locker}/confirm', [LockerController::class, 'confirm']);
+Route::post('/lockers/{locker}/confirm', [LockerController::class, 'store']);
 // Logged-in users only
 Route::middleware('auth')->group(function () {
 

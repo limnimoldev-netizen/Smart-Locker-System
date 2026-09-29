@@ -8,7 +8,27 @@ use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
-    public function index()
+    public function search()
+    {
+        $locations = Location::withCount(['lockers as free_count' => function ($q) {
+            $q->where('status', 'available');
+        }])->get();
+
+        return view('user.locations.search', compact('locations'));
+    }
+
+    public function show(Location $location)
+    {
+        $lockers = $location->lockers;
+
+        $available = $lockers->where('status', 'available')->count();
+        $inUse = $lockers->where('status', 'in_use')->count();
+        $maintenance = $lockers->where('status', 'maintenance')->count();
+
+        return view('user.locations.show', compact('location', 'available', 'inUse', 'maintenance'));
+    }
+
+    public function lockers(Location $location)
     {
         return view('locations.index', [
             'locations' => Location::latest()->get(),
@@ -18,9 +38,11 @@ class LocationController extends Controller
         ]);
     }
 
-    public function create()
+    public function index()
     {
-        return view('locations.create');
+        $locations = Location::withCount('lockers')->get();
+
+        return view('user.locations.index', compact('locations'));
     }
 
     public function store(Request $request)
@@ -76,7 +98,11 @@ class LocationController extends Controller
 
     public function userIndex()
     {
-        return view('user.locations.index');
+        $locations = Location::withCount(['lockers as free_count' => function ($q) {
+            $q->where('status', 'available');
+        }])->get();
+
+        return view('user.locations.search', compact('locations'));
     }
 
 }

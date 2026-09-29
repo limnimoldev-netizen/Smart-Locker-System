@@ -3,14 +3,18 @@
 ])
 
 @php
-    $userRole = auth()->user()->role ?? 'admin';
+    $userRole = auth()->user()->role ?? 'user';
     $isStaff = in_array($userRole, ['admin', 'staff'], true);
     $displayName = auth()->user()->name ?? ($isStaff ? 'Admin' : 'User');
     $initial = strtoupper(substr($displayName, 0, 1));
 @endphp
 
-<aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 -translate-x-full bg-[#234397] text-[#C7D2EE] shadow-xl transition-transform duration-300 ease-in-out lg:static lg:translate-x-0">
-    <div class="flex flex-col h-full">
+<aside id="sidebar" class="
+    fixed inset-y-0 left-0 z-50 w-64 -translate-x-full transition-transform
+    lg:static lg:translate-x-0 lg:z-auto
+    bg-[#1E3A8A] flex flex-col min-h-screen
+">
+    <!-- sidebar content -->
         <div class="px-5 pt-7">
             <div class="flex justify-center">
                 <img src="{{ asset('assets/images/logo.png') }}" alt="Smart Locker Logo" class="h-28 w-auto object-contain" onerror="this.style.display='none'">
@@ -115,5 +119,4 @@
                 </form>
             </div>
         </div>
-    </div>
 </aside>
