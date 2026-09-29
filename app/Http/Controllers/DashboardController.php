@@ -29,8 +29,7 @@ class DashboardController extends Controller
 
         // User
         $userTotal = User::count();
-        $userActive = User::where('status', 'Active')->count();
-
+        $userActive = User::where('created_at', '>=', now()->subDays(30))->count();
         // Maintenance
         $maintenanceOpen = Maintenance::where('status', 'open')->count();
         $stats = [
