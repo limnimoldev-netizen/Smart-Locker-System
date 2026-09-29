@@ -13,7 +13,28 @@ class DashboardController extends Controller
 {
     public function userIndex()
     {
-        return view('user.dashboard.index');
+        $user = auth()->user();
+
+    // Get active locker usage for current user (if any)
+    $activeUsage = \App\Models\LockerUsage::with(['locker.location'])
+        ->where('user_id', $user->id)
+        ->whereNull('ended_at')
+        ->first();
+
+    // Fetch locations summary
+    $locationsCount = \App\Models\Location::count();
+    $availableLockersCount = \App\Models\Locker::where('status', 'available')->count();
+
+    // Get recent rental history
+    $recentUsages = \App\Models\LockerUsage::with(['locker.location'])
+        ->where('user_id', $user->id)
+        ->whereNotNull('ended_at')
+        ->orderByDesc('ended_at')
+        ->take(3)
+        ->get();
+
+    return view('user.dashboard.index', compact('activeUsage', 'locationsCount', 'availableLockersCount', 'recentUsages'));
+        
     }
 
     public function index(Request $request)
@@ -99,4 +120,5 @@ class DashboardController extends Controller
 
         return view('dashboards.index', compact('stats', 'dataLockers'));
     }
+    
 }
