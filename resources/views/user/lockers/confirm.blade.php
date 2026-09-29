@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gray-100 relative flex flex-col">
+<div class=" mx-auto max-w-6xl space-y-6 bg-[#F8F9FA] sm:space-y-8 min-h-screen bg-gray-100 relative flex flex-col">
 
     {{-- Dimmed background content --}}
     <div class="opacity-30 flex-1 pointer-events-none select-none">

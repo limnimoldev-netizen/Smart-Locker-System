@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gray-50 flex flex-col" id="locationLockerPage" data-lockers="{{ json_encode($lockers) }}">
+<div class=" mx-auto max-w-6xl space-y-6 bg-[#F8F9FA] sm:space-y-8 min-h-screen bg-gray-50 flex flex-col" id="locationLockerPage" data-lockers="{{ json_encode($lockers) }}">
 
     {{-- Header --}}
     <header class="rounded-xl bg-[#1E3A8A] px-4 py-4 text-white shadow-md sm:rounded-lg sm:px-8 sm:py-5">

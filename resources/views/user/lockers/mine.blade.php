@@ -5,7 +5,7 @@
 
 
 <div>
-    <section class="rounded-xl bg-[#1E3A8A] px-4 py-4 text-white shadow-md sm:rounded-lg sm:px-8 sm:py-5">
+    <section class=" mx-auto max-w-6xl space-y-6  sm:space-y-8 rounded-xl bg-[#1E3A8A] px-4 py-4 text-white shadow-md sm:rounded-lg sm:px-8 sm:py-5">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div class="flex items-center gap-3">
                 <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-600">
@@ -20,7 +20,7 @@
                 </div>
     </section>
 
-    <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-5">
+    <div class=" mx-auto max-w-6xl space-y-6 bg-[#F8F9FA] sm:space-y-8 mt-6 grid grid-cols-1 lg:grid-cols-2 gap-5">
         @forelse ($usages as $usage)
         <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
             <div class="flex items-start justify-between">
