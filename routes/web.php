@@ -7,12 +7,13 @@ use App\Http\Controllers\LockerController;
 use App\Http\Controllers\LockerUsageController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Middleware\AdminAccess;
 use App\Http\Middleware\UserAccess;
 
-Route::redirect('/', '/login');
+Route::redirect('/', '/register');
 
 // Guest only
 Route::middleware('guest')->group(function () {
@@ -83,7 +84,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/usage', [LockerUsageController::class, 'index'])->name('usage.index');
         Route::get('/locker-usages/{lockerUsage}', [LockerUsageController::class, 'show'])->name('usage.show');
         Route::patch('/locker-usages/{lockerUsage}/release', [LockerUsageController::class, 'release'])->name('locker-usages.release');
-        Route::view('/profile', 'user.profile.index')->name('profile');
+        
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     });
 
     Route::post('/logout', [LoginController::class, 'destroy'])

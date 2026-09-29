@@ -3,9 +3,10 @@
 ])
 
 @php
-    $userRole = auth()->user()->role ?? 'user';
+    $user = auth()->user();
+    $userRole = $user->role ?? 'user';
     $isStaff = in_array($userRole, ['admin', 'staff'], true);
-    $displayName = auth()->user()->name ?? ($isStaff ? 'Admin' : 'User');
+    $displayName = $user->name ?? ($isStaff ? 'Admin' : 'User');
     $initial = strtoupper(substr($displayName, 0, 1));
 @endphp
 
@@ -34,7 +35,7 @@
                     <a href="/dashboard" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white transition-colors hover:bg-white/10 {{ request()->is('dashboard') ? 'bg-[#2f4da2] shadow-sm' : '' }}">
                         <i class="fa-solid fa-house w-4 text-center text-[13px]" aria-hidden="true"></i>
                         <span class="flex-1">Dashboard</span>
-                        @if (request()->is('dashboard'))<i class="fa-solid fa-chevron-right text-[10px]" aria-hidden="true"></i>@endif
+                        
                     </a>
                 </li>
                 <li>
@@ -109,8 +110,18 @@
 
         <div class="border-t border-white/20 px-5 py-5">
             <div class="flex items-center gap-3 rounded-lg px-1 py-1">
-                <div class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-xs font-bold text-[#234397]">{{ $initial }}</div>
-                <div class="min-w-0 flex-1"><p class="truncate text-xs font-semibold text-white">{{ $displayName }}</p><p class="truncate text-[11px] text-blue-100/55">{{ $isStaff ? ucfirst($userRole) : 'Locker customer' }}</p></div>
+                {{-- Profile Picture / Fallback --}}
+                @if($user && $user->profile_picture)
+                    <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="{{ $displayName }}" class="h-9 w-9 shrink-0 rounded-full object-cover border border-white/30">
+                @else
+                    <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-xs font-bold text-[#234397]">{{ $initial }}</div>
+                @endif
+
+                <div class="min-w-0 flex-1">
+                    <p class="truncate text-xs font-semibold text-white">{{ $displayName }}</p>
+                    <p class="truncate text-[11px] text-blue-100/55">{{ $isStaff ? ucfirst($userRole) : 'Locker customer' }}</p>
+                </div>
+                
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="rounded-md p-2 text-blue-100/80 transition hover:bg-white/10 hover:text-white" title="Log out" aria-label="Log out">

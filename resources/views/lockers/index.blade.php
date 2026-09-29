@@ -28,28 +28,34 @@
             <div class="rounded-lg border border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-5 sm:py-5">
                 <div class="flex items-center justify-between">
                     <p class="text-sm text-slate-600 sm:text-base">Total lockers</p>
-                    <i class="fa-solid fa-box text-blue-700" aria-hidden="true"></i>
+                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-blue-700">
+                        <i class="fa-solid fa-box text-[#1E3A8A]" aria-hidden="true"></i>
+                    </div>
                 </div>
-                <p class="mt-2 text-2xl font-semibold">{{ $totalLockers ?? 0 }}</p>
-                <p class="text-sm text-slate-500 sm:text-base">At all locations</p>
+                <p class="mt-2 text-2xl text-[#1E3A8A] font-semibold">{{ $totalLockers ?? 0 }}</p>
+                <p class="text-sm text-[#1E3A8A] sm:text-base">At all locations</p>
             </div>
 
             <div class="rounded-lg border border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-5 sm:py-5">
                 <div class="flex items-center justify-between">
                     <p class="text-sm text-slate-600 sm:text-base">Available lockers</p>
-                    <i class="fa-solid fa-circle-check text-emerald-600" aria-hidden="true"></i>
+                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-green-100 text-green-600">
+                        <i class="fa-solid fa-circle-check text-green-600" aria-hidden="true"></i>
+                    </div>  
                 </div>
-                <p class="mt-2 text-2xl font-semibold">{{ $availableLockers ?? 0 }}</p>
-                <p class="text-sm text-slate-500 sm:text-base">Ready for customers</p>
+                <p class="mt-2 text-2xl text-green-700 font-semibold">{{ $availableLockers ?? 0 }}</p>
+                <p class="text-sm text-green-500 sm:text-base">Ready for customers</p>
             </div>
 
             <div class="rounded-lg border border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-5 sm:py-5 sm:col-span-2 lg:col-span-1">
                 <div class="flex items-center justify-between">
                     <p class="text-sm text-slate-600 sm:text-base">In maintenance</p>
-                    <i class="fa-solid fa-box text-blue-700" aria-hidden="true"></i>
+                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100 text-orange-700">
+                        <i class="fa-solid fa-wrench text-orange-700" aria-hidden="true"></i>
+                    </div>  
                 </div>
-                <p class="mt-2 text-2xl font-semibold">{{ $maintenanceLockers ?? 0 }}</p>
-                <p class="text-sm text-slate-500 sm:text-base">At all locations</p>
+                <p class="mt-2 text-2xl text-orange-700 font-semibold">{{ $maintenanceLockers ?? 0 }}</p>
+                <p class="text-sm text-orange-500 sm:text-base">At all locations</p>
             </div>
         </section>
 
@@ -60,11 +66,6 @@
                     <p class="text-sm text-slate-500 sm:text-base">View and manage lockers at this location</p>
                 </div>
 
-                <label class="relative block w-full max-w-xs sm:w-44">
-                    <span class="sr-only">Search lockers</span>
-                    <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-400" aria-hidden="true"></i>
-                    <input type="search" placeholder="Search lockers" class="w-full rounded-lg border border-slate-200 py-2 pl-8 pr-3 text-sm text-slate-700 outline-none placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 sm:text-base">
-                </label>
             </div>
 
             <div class="sm:hidden">
