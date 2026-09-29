@@ -11,156 +11,142 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
-                    <i class="fa-solid fa-box text-xl text-blue-600"></i>
-                </div>
-                <div>
-                    <p class="text-sm text-gray-500">Total Lockers</p>
-                    <p class="text-2xl font-bold text-gray-900">162</p>
-                </div>
-            </div>
-        </div>
+    <div class="mx-auto max-w-6xl space-y-4 bg-[#F8F9FA] sm:space-y-6">
 
-        <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
-                    <i class="fa-solid fa-check text-xl text-green-600"></i>
+        <section class="rounded-lg bg-[#1E3A8A] px-4 py-4 text-white shadow-md sm:px-8 sm:py-5">
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                        <i class="fa-solid fa-box" aria-hidden="true"></i>
+                    </span>
+                    <div>
+                        <h1 class="text-xl font-semibold">Lockers</h1>
+                        <p class="text-sm text-blue-200 sm:text-base">Manage lockers across all locations</p>
+                    </div>
                 </div>
-                <div>
-                    <p class="text-sm text-gray-500">Available</p>
-                    <p class="text-2xl font-bold text-gray-900">89</p>
-                </div>
+                <a href="{{ route('lockers.create') }}" class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-[#111827] shadow-sm hover:bg-[#C7D2EF] sm:w-auto">
+                    <i class="fa-solid fa-plus text-xs" aria-hidden="true"></i>
+                    Add locker
+                </a>
             </div>
-        </div>
+        </section>
 
-        <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center">
-                    <i class="fa-solid fa-lock text-xl text-red-600"></i>
+        <section class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="rounded-lg border border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-5 sm:py-5">
+                <div class="flex items-center justify-between">
+                    <p class="text-sm text-slate-600 sm:text-base">Total lockers</p>
+                    <i class="fa-solid fa-box text-blue-700" aria-hidden="true"></i>
                 </div>
-                <div>
-                    <p class="text-sm text-gray-500">In Use</p>
-                    <p class="text-2xl font-bold text-gray-900">45</p>
-                </div>
+                <p class="mt-2 text-2xl font-semibold">{{ $totalLockers ?? 0 }}</p>
+                <p class="text-sm text-slate-500 sm:text-base">At all locations</p>
             </div>
-        </div>
 
-        <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center">
-                    <i class="fa-solid fa-screwdriver-wrench text-xl text-amber-600"></i>
+            <div class="rounded-lg border border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-5 sm:py-5">
+                <div class="flex items-center justify-between">
+                    <p class="text-sm text-slate-600 sm:text-base">Available lockers</p>
+                    <i class="fa-solid fa-circle-check text-emerald-600" aria-hidden="true"></i>
                 </div>
-                <div>
-                    <p class="text-sm text-gray-500">Maintenance</p>
-                    <p class="text-2xl font-bold text-gray-900">28</p>
-                </div>
+                <p class="mt-2 text-2xl font-semibold">{{ $availableLockers ?? 0 }}</p>
+                <p class="text-sm text-slate-500 sm:text-base">Ready for customers</p>
             </div>
-        </div>
+
+            <div class="rounded-lg border border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-5 sm:py-5 sm:col-span-2 lg:col-span-1">
+                <div class="flex items-center justify-between">
+                    <p class="text-sm text-slate-600 sm:text-base">In maintenance</p>
+                    <i class="fa-solid fa-box text-blue-700" aria-hidden="true"></i>
+                </div>
+                <p class="mt-2 text-2xl font-semibold">{{ $maintenanceLockers ?? 0 }}</p>
+                <p class="text-sm text-slate-500 sm:text-base">At all locations</p>
+            </div>
+        </section>
+
+        <section class="rounded-lg border border-slate-200 bg-white px-3 py-4 shadow-sm sm:px-5 sm:py-5">
+            <div class="flex flex-col gap-3 border-slate-200 pb-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <h1 class="text-lg font-semibold sm:text-xl">Locker Lists</h1>
+                    <p class="text-sm text-slate-500 sm:text-base">View and manage lockers at this location</p>
+                </div>
+
+                <label class="relative block w-full max-w-xs sm:w-44">
+                    <span class="sr-only">Search lockers</span>
+                    <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-400" aria-hidden="true"></i>
+                    <input type="search" placeholder="Search lockers" class="w-full rounded-lg border border-slate-200 py-2 pl-8 pr-3 text-sm text-slate-700 outline-none placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 sm:text-base">
+                </label>
+            </div>
+
+            <div class="sm:hidden">
+                @forelse($lockers ?? [] as $locker)
+                    <div class="mb-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <p class="text-xs uppercase tracking-wide text-slate-400">Locker</p>
+                                <p class="mt-1 text-base font-semibold text-slate-900">#{{ $locker->id }}</p>
+                            </div>
+                            <span class="rounded-full px-2.5 py-1 text-[10px] font-semibold @if($locker->status == 'available') bg-emerald-50 text-emerald-700 @elseif($locker->status == 'in_use') bg-red-50 text-red-600 @else bg-orange-50 text-orange-600 @endif">
+                                {{ ucfirst(str_replace('_', ' ', $locker->status)) }}
+                            </span>
+                        </div>
+
+                        <div class="mt-3 space-y-2 text-sm text-slate-600">
+                            <p><span class="font-medium text-slate-700">Type:</span> {{ ucfirst($locker->type) }}</p>
+                        </div>
+
+                        <div class="mt-4 flex items-center justify-end gap-3 border-t border-slate-200 pt-3">
+                            <a href="{{ route('lockers.show', $locker) }}" class="text-slate-500 hover:text-blue-700" aria-label="View locker {{ $locker->id }}">
+                                <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                            </a>
+                            <a href="{{ route('lockers.edit', $locker) }}" class="text-slate-500 hover:text-blue-700" aria-label="Edit locker {{ $locker->id }}">
+                                <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                @empty
+                    <div class="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-5 text-center text-sm text-slate-500">
+                        No lockers found. <a href="{{ route('lockers.create') }}" class="text-blue-600 hover:underline">Add your first locker</a>
+                    </div>
+                @endforelse
+            </div>
+
+            <div class="hidden sm:block -mx-3 overflow-x-auto sm:-mx-5">
+                <table class="w-full min-w-[640px] text-left text-sm">
+                    <thead class="border-y border-slate-200 bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+                        <tr>
+                            <th scope="col" class="px-5 py-3 font-semibold">ID</th>
+                            <th scope="col" class="px-5 py-3 font-semibold">Type</th>
+                            <th scope="col" class="px-5 py-3 font-semibold">Status</th>
+                            <th scope="col" class="px-5 py-3 text-right font-semibold">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        @forelse($lockers ?? [] as $locker)
+                        <tr class="text-slate-700 transition-colors hover:bg-slate-50">
+                            <td class="px-5 py-4 font-medium text-slate-900">#{{ $locker->id }}</td>
+                            <td class="px-5 py-4">{{ ucfirst($locker->type) }}</td>
+                            <td class="px-5 py-4">
+                                <span class="rounded-full px-2.5 py-1 text-xs font-semibold @if($locker->status == 'available') bg-emerald-50 text-emerald-700 @elseif($locker->status == 'in_use') bg-red-50 text-red-600 @else bg-orange-50 text-orange-600 @endif">
+                                    {{ ucfirst(str_replace('_', ' ', $locker->status)) }}
+                                </span>
+                            </td>
+                            <td class="px-5 py-4 text-right">
+                                <a href="{{ route('lockers.show', $locker) }}" title="View locker" aria-label="View locker {{ $locker->id }}" class="mr-3 text-slate-400 transition hover:text-blue-700">
+                                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                                </a>
+                                <a href="{{ route('lockers.edit', $locker) }}" title="Edit locker" aria-label="Edit locker {{ $locker->id }}" class="text-slate-400 transition hover:text-blue-700">
+                                    <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="4" class="px-5 py-8 text-center text-slate-500">
+                                <p class="text-sm">No lockers found. <a href="{{ route('lockers.create') }}" class="text-blue-600 hover:underline">Add your first locker</a></p>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </div>
 
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        <div class="p-6 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                <select class="w-full sm:w-48 px-4 py-2 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <option value="">All Locations</option>
-                    <option value="1">Central Mall</option>
-                    <option value="2">Downtown Library</option>
-                    <option value="3">Sports Complex</option>
-                </select>
-                <select class="w-full sm:w-48 px-4 py-2 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <option value="">All Status</option>
-                    <option value="available">Available</option>
-                    <option value="in_use">In Use</option>
-                    <option value="maintenance">Maintenance</option>
-                </select>
-                <input type="text" placeholder="Search locker..." class="w-full sm:w-64 px-4 py-2 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-            </div>
-        </div>
-
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-gray-50 border-b border-gray-100">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Locker #</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Location</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Type</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Last Updated</th>
-                        <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 font-medium text-gray-900">L-101</td>
-                        <td class="px-6 py-4 text-gray-700">Central Mall</td>
-                        <td class="px-6 py-4 text-gray-700">Standard</td>
-                        <td class="px-6 py-4">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Available</span>
-                        </td>
-                        <td class="px-6 py-4 text-gray-500">2 hours ago</td>
-                        <td class="px-6 py-4 text-right">
-                            <div class="flex items-center justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition" title="Edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition" title="Maintenance">
-                                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 font-medium text-gray-900">L-102</td>
-                        <td class="px-6 py-4 text-gray-700">Central Mall</td>
-                        <td class="px-6 py-4 text-gray-700">Large</td>
-                        <td class="px-6 py-4">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">In Use</span>
-                        </td>
-                        <td class="px-6 py-4 text-gray-500">1 hour ago</td>
-                        <td class="px-6 py-4 text-right">
-                            <div class="flex items-center justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition" title="Edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition" title="Maintenance">
-                                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 font-medium text-gray-900">L-201</td>
-                        <td class="px-6 py-4 text-gray-700">Downtown Library</td>
-                        <td class="px-6 py-4 text-gray-700">Standard</td>
-                        <td class="px-6 py-4">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">Maintenance</span>
-                        </td>
-                        <td class="px-6 py-4 text-gray-500">5 hours ago</td>
-                        <td class="px-6 py-4 text-right">
-                            <div class="flex items-center justify-end gap-2">
-                                <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition" title="Edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition" title="Maintenance">
-                                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
-            <p class="text-sm text-gray-500">Showing 1 to 3 of 162 entries</p>
-            <div class="flex gap-2">
-                <button class="px-3 py-1 border border-gray-200 rounded-lg text-sm text-gray-500 hover:bg-gray-50 disabled:opacity-50" disabled>Previous</button>
-                <button class="px-3 py-1 border border-gray-200 rounded-lg text-sm text-gray-500 hover:bg-gray-50">Next</button>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection

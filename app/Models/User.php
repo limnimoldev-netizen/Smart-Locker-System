@@ -4,15 +4,31 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
-        'name',
+        'user_id',
+        'user_code',
+        'username',
+        'full_name',
         'email',
-        'password',
-        'role',
+        'phone',
+        'status'
     ];
+
+    protected $casts = [
+        'status' => UserStatus::class,
+    ];
+
+    public function lockers() {
+        return $this->hasMany(Locker::class, 'user_id', 'user_id');
+    }
+
+    public function reportedMaintenances() {
+        return $this->hasMany(Maintenance::class, 'reported_by', 'user_id');
+    }
 }

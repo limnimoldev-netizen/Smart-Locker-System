@@ -7,24 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class LockerUsage extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
-        'locker_id',
         'user_id',
-        'access_code',
-        'status',
+        'locker_id',
         'started_at',
-        'ended_at',
+        'release_at',
+        'status',
     ];
-
-    public function locker()
-    {
-        return $this->belongsTo(Locker::class);
-    }
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function locker()
+    {
+        return $this->belongsTo(Locker::class);
     }
 }
