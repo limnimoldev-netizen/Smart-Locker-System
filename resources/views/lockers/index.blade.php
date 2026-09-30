@@ -3,7 +3,6 @@
 @section('title', 'Manage Lockers')
 
 @section('content')
-
     <div class="mx-auto max-w-6xl space-y-4 bg-[#F8F9FA] sm:space-y-6">
 
         <section class="rounded-lg bg-[#1E3A8A] px-4 py-4 text-white shadow-md sm:px-8 sm:py-5">
