@@ -89,7 +89,7 @@
                 <h3 class="text-lg font-bold text-gray-900">Need a secure place for your items?</h3>
                 <p class="text-sm text-gray-500">Browse nearby smart locker hubs and reserve your space instantly.</p>
             </div>
-            <a href="{{ url('/locations/search') }}" class="px-6 py-3 bg-[#1E3A8A] text-white font-semibold text-sm rounded-xl hover:bg-blue-900 transition shrink-0">
+            <a href="{{ route('user.locations.index') }}" class="px-6 py-3 bg-[#1E3A8A] text-white font-semibold text-sm rounded-xl hover:bg-blue-900 transition shrink-0">
                 Reserve a Locker Now
             </a>
         </div>
