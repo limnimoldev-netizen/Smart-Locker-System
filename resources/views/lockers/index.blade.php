@@ -124,9 +124,23 @@
                                 <a href="{{ route('lockers.show', $locker) }}" title="View locker" aria-label="View locker {{ $locker->id }}" class="mr-3 text-slate-400 transition hover:text-blue-700">
                                     <i class="fa-solid fa-eye" aria-hidden="true"></i>
                                 </a>
-                                <a href="{{ route('lockers.edit', $locker) }}" title="Edit locker" aria-label="Edit locker {{ $locker->id }}" class="text-slate-400 transition hover:text-blue-700">
+                                <a href="{{ route('lockers.edit', $locker) }}" title="Edit locker" aria-label="Edit locker {{ $locker->id }}" class="text-slate-400 mr-3 transition hover:text-blue-700">
                                     <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
                                 </a>
+                                <form action="{{ route('lockers.destroy', $locker) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button
+                                        type="submit"
+                                        title="Delete locker"
+                                        aria-label="Delete locker {{ $locker->id }}"
+                                        class="text-slate-400 transition hover:text-red-700"
+                                        onclick="return confirm('Are you sure you want to delete this locker?')"
+                                    >
+                                        <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @empty

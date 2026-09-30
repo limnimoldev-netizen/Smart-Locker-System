@@ -75,7 +75,7 @@ class LocationController extends Controller
     {
         $location = Location::findOrFail($id);
 
-        return view('locations.edite', compact('location'));
+        return view('locations.edit', compact('location'));
     }
 
     public function update(Request $request, $id)
